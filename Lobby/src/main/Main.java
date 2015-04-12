@@ -13,7 +13,7 @@ public class Main extends JavaPlugin{
 	
 	public void onEnable(){
 		signControl.Receive.listSign = new HashMap<Location, String[]>();
-		baseDeDonnee.Connexion.connect();
+		ApiBaseDeDonnee.connect();
 		Config.createConfig();
 		new server.ServerMain().runTaskAsynchronously(getPlugin());
 		new signControl.DemarageSetup();
