@@ -1,0 +1,45 @@
+package object;
+
+import java.util.ArrayList;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
+
+public class Panneau {
+	
+	private Location loc;
+	private String server;
+	
+	public static ArrayList<Panneau> listSign;
+	
+	public Panneau(String server, Location location){
+		this.server = server;
+		this.loc = location;
+		Block bl = this.loc.getBlock();
+		if(bl.getType() == Material.WALL_SIGN || bl.getType() == Material.SIGN_POST){
+			listSign.add(this);
+		}
+	}
+	
+	public void setSign(String line1, String line2, String line3, String line4){
+		Sign s = (Sign) this.loc.getBlock().getState();
+		s.setLine(0, line1);
+		s.setLine(1, line2);
+		s.setLine(2, line3);
+		s.setLine(3, line4);
+		s.update();
+	}
+	
+	public static Panneau getPanneau(String serveur){
+		for(int i = 0;i<listSign.size();i++){
+			Panneau p = listSign.get(i);
+			if(p.server.equalsIgnoreCase(serveur))
+				return p;
+		}
+		return null;
+	}
+	
+
+}
