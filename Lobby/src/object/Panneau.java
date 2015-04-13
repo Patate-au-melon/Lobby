@@ -9,6 +9,10 @@ import org.bukkit.block.Sign;
 
 public class Panneau {
 	
+	private String line1;
+	private String line2;
+	private String line3;
+	private String line4;
 	private Location loc;
 	private String server;
 	
@@ -24,12 +28,10 @@ public class Panneau {
 	}
 	
 	public void setSign(String line1, String line2, String line3, String line4){
-		Sign s = (Sign) this.loc.getBlock().getState();
-		s.setLine(0, line1);
-		s.setLine(1, line2);
-		s.setLine(2, line3);
-		s.setLine(3, line4);
-		s.update();
+		this.line1 = line1;
+		this.line2 = line2;
+		this.line3 = line3;
+		this.line4 = line4;
 	}
 	
 	public static Panneau getPanneau(String serveur){
@@ -39,6 +41,15 @@ public class Panneau {
 				return p;
 		}
 		return null;
+	}
+	
+	private update(){
+		Sign s = (Sign) this.loc.getBlock().getState();
+		s.setLine(0, this.line1);
+		s.setLine(1, this.line2);
+		s.setLine(2, this.line3);
+		s.setLine(3, this.line4);
+		s.update();
 	}
 	
 
