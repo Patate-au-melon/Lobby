@@ -32,6 +32,7 @@ public class Panneau {
 		this.line2 = line2;
 		this.line3 = line3;
 		this.line4 = line4;
+		update();
 	}
 	
 	public static Panneau getPanneau(String serveur){
@@ -44,12 +45,22 @@ public class Panneau {
 	}
 	
 	private update(){
-		Sign s = (Sign) this.loc.getBlock().getState();
-		s.setLine(0, this.line1);
-		s.setLine(1, this.line2);
-		s.setLine(2, this.line3);
-		s.setLine(3, this.line4);
-		s.update();
+		try{
+			Sign s = (Sign) this.loc.getBlock().getState();
+			s.setLine(0, this.line1);
+			s.setLine(1, this.line2);
+			s.setLine(2, this.line3);
+			s.setLine(3, this.line4);
+			s.update();
+		}catch(Execption e){
+			system.out.println("mise a jour du panneau impossible");
+			waitTime();
+		}
+	}
+	
+	private waitTime(){
+		//a faire avec un scheduler
+		//et une simple fonction qui va relancer l'update tant qu'il n'arrive pas a update
 	}
 	
 
