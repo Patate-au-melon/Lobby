@@ -2,6 +2,7 @@ package object;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -54,13 +55,19 @@ public class Panneau {
 			s.update();
 		}catch(Exception e){
 			System.out.println("mise a jour du panneau impossible");
-			waitTime();
+			waitTime(this);
 		}
 	}
 	
-	private void waitTime(){
-		//a faire avec un scheduler
-		//et une simple fonction qui va relancer l'update tant qu'il n'arrive pas a update
+	private void waitTime(final Panneau p){
+		Bukkit.getScheduler().scheduleSyncDelayedTask(main.Main.getPlugin(), new Runnable(){
+
+			@Override
+			public void run() {
+				p.update();
+			}
+			
+		}, 120);
 	}
 	
 
