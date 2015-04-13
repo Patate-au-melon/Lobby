@@ -44,7 +44,7 @@ public class Panneau {
 		return null;
 	}
 	
-	private update(){
+	private void update(){
 		try{
 			Sign s = (Sign) this.loc.getBlock().getState();
 			s.setLine(0, this.line1);
@@ -52,13 +52,13 @@ public class Panneau {
 			s.setLine(2, this.line3);
 			s.setLine(3, this.line4);
 			s.update();
-		}catch(Execption e){
+		}catch(Exception e){
 			System.out.println("mise a jour du panneau impossible");
 			waitTime();
 		}
 	}
 	
-	private waitTime(){
+	private void waitTime(){
 		//a faire avec un scheduler
 		//et une simple fonction qui va relancer l'update tant qu'il n'arrive pas a update
 	}
