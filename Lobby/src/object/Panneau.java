@@ -53,7 +53,7 @@ public class Panneau {
 			s.setLine(3, this.line4);
 			s.update();
 		}catch(Execption e){
-			system.out.println("mise a jour du panneau impossible");
+			System.out.println("mise a jour du panneau impossible");
 			waitTime();
 		}
 	}
