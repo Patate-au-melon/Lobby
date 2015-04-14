@@ -1,4 +1,4 @@
-package newSignControl;
+package signControl;
 
 import java.util.ArrayList;
 
