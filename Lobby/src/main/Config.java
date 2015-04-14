@@ -2,7 +2,6 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -64,9 +63,9 @@ public class Config {
 	
 	private static void recupListServerName(){
 		FileConfiguration config = main.Config.getListServerNameConfig();
-		HashMap<String, ArrayList<String>> list = baseDeDonnee.Requette.send("SELECT * FROM `listServer`");
-		for(int i = 1; i <list.size();i++){
-			ArrayList<String> l = list.get(i+"");
+		ArrayList<ArrayList<String>> list = ApiBaseDeDonnee.sendRequette("SELECT * FROM `listServer`");
+		for(int i = 0; i <list.size();i++){
+			ArrayList<String> l = list.get(i);
 			config.set(l.get(0), l.get(1));
 		}
 		main.Config.saveListServerNameConfig(config);

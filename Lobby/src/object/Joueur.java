@@ -11,7 +11,6 @@ public class Joueur {
 	private UUID uuid;
 	private Grade grade;
 	private int moneyMiniGames;
-	private int moneyPVP;
 	private int moneyVIP;
 	private int multiplcateur;
 	
@@ -60,14 +59,6 @@ public class Joueur {
 
 	public void setMoneyMiniGames(int moneyMiniGames) {
 		this.moneyMiniGames = moneyMiniGames;
-	}
-
-	public int getMoneyPVP() {
-		return moneyPVP;
-	}
-
-	public void setMoneyPVP(int moneyPVP) {
-		this.moneyPVP = moneyPVP;
 	}
 
 	public int getMoneyVIP() {
