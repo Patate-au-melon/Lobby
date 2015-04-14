@@ -8,6 +8,7 @@ import org.bukkit.Location;
 public class OnEnable {
 	
 	public OnEnable(){
+		//je suis fort
 		signControl.Receive.listSign = new HashMap<Location, String[]>();
 		ApiBaseDeDonnee.connect();
 		Config.createConfig();
