@@ -3,6 +3,7 @@ package server;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -31,6 +32,13 @@ public class ServerMain extends BukkitRunnable{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void disconnect(){
+		for(Entry<String, Socket> entry : listServer.entrySet()){
+			String server = entry.getKey();
+			new SendMessage(server, "stop", "");
 		}
 	}
 	
