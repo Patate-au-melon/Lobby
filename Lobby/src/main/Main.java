@@ -1,9 +1,7 @@
 package main;
 
-import java.util.HashMap;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -12,12 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin{
 	
 	public void onEnable(){
-		signControl.Receive.listSign = new HashMap<Location, String[]>();
-		baseDeDonnee.Connexion.connect();
-		Config.createConfig();
-		new server.ServerMain().runTaskAsynchronously(getPlugin());
-		new signControl.DemarageSetup();
-		Bukkit.getLogger().info("Plugin actif");
+		new OnEnable();
 	}
 	
 	public void onDisable(){
