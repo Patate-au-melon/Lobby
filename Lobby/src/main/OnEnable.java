@@ -8,7 +8,6 @@ import org.bukkit.Location;
 public class OnEnable {
 	
 	public OnEnable(){
-		//yolo
 		signControl.Receive.listSign = new HashMap<Location, String[]>();
 		ApiBaseDeDonnee.connect();
 		Config.createConfig();
