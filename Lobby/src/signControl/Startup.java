@@ -12,7 +12,6 @@ public class Startup {
 		for(int i = 0; i <list.size();i++){
 			ArrayList<String> l = list.get(i);
 			String server = l.get(0);
-			x
 			Location loc = new Location(Bukkit.getWorld(l.get(1)), Integer.parseInt(l.get(2)), Integer.parseInt(l.get(3)), Integer.parseInt(l.get(4)));
 			String line1 = main.Config.getSignControl().getString("line1");
 			String line2 = main.Config.getSignControl().getString("line2");
