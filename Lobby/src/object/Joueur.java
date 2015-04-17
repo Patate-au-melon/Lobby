@@ -10,6 +10,7 @@ public class Joueur {
 	private String name;
 	private UUID uuid;
 	private Grade grade;
+	private String server;
 	private int moneyMiniGames;
 	private int moneyVIP;
 	private int multiplcateur;
@@ -21,7 +22,7 @@ public class Joueur {
 		this.uuid = player.getUniqueId();
 	}
 	
-	public Joueur getJoueur(String name){
+	public static Joueur getJoueur(String name){
 		for(Joueur j: joueurList){
 			if(j.name.equalsIgnoreCase(name))
 				return j;
@@ -29,7 +30,7 @@ public class Joueur {
 		return null;
 	}
 	
-	public Joueur getJoueur(UUID uuid){
+	public static Joueur getJoueur(UUID uuid){
 		for(Joueur j : joueurList){
 			if(j.uuid.equals(uuid))
 				return j;
@@ -75,6 +76,51 @@ public class Joueur {
 
 	public void setMultiplcateur(int multiplcateur) {
 		this.multiplcateur = multiplcateur;
+	}
+
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Joueur other = (Joueur) obj;
+		if (grade == null) {
+			if (other.grade != null)
+				return false;
+		} else if (!grade.equals(other.grade))
+			return false;
+		if (moneyMiniGames != other.moneyMiniGames)
+			return false;
+		if (moneyVIP != other.moneyVIP)
+			return false;
+		if (multiplcateur != other.multiplcateur)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (server == null) {
+			if (other.server != null)
+				return false;
+		} else if (!server.equals(other.server))
+			return false;
+		if (uuid == null) {
+			if (other.uuid != null)
+				return false;
+		} else if (!uuid.equals(other.uuid))
+			return false;
+		return true;
 	}
 	
 	
