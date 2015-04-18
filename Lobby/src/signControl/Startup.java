@@ -8,7 +8,7 @@ import org.bukkit.Location;
 public class Startup {
 	
 	public Startup(){
-		ArrayList<ArrayList<String>> list = main.ApiBaseDeDonnee.sendRequette("SELECT * FROM `signList`");
+		ArrayList<ArrayList<String>> list = main.Api.BdDsendRequette("SELECT * FROM `signList`");
 		for(int i = 0; i <list.size();i++){
 			ArrayList<String> l = list.get(i);
 			String server = l.get(0);

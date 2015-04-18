@@ -10,7 +10,7 @@ public class OnEnable {
 	
 	public OnEnable(){
 		object.Panneau.listSign = new ArrayList<Panneau>();
-		ApiBaseDeDonnee.connect();
+		Api.BdDconnect();
 		new signControl.Startup();
 		Config.createConfig();
 		new server.ServerMain().runTaskAsynchronously(Main.getPlugin());

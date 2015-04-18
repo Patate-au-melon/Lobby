@@ -21,7 +21,7 @@ public class Main extends JavaPlugin{
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		ApiTransfertPlayer.transfertPlayerTo((Player) sender, "S2");
+		Api.transfertPlayerTo(getPlugin(), (Player)sender, "S2");
 		
 		return false;
 	}

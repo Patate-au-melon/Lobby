@@ -63,7 +63,7 @@ public class Config {
 	
 	private static void recupListServerName(){
 		FileConfiguration config = main.Config.getListServerNameConfig();
-		ArrayList<ArrayList<String>> list = ApiBaseDeDonnee.sendRequette("SELECT * FROM `listServer`");
+		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer`");
 		for(int i = 0; i <list.size();i++){
 			ArrayList<String> l = list.get(i);
 			config.set(l.get(0), l.get(1));
