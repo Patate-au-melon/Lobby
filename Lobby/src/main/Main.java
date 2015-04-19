@@ -12,8 +12,6 @@ public class Main extends JavaPlugin{
 	
 	public void onEnable(){
 		new OnEnable();
-		Bukkit.getPluginManager().registerEvents(new joueur.JoueurEvent(), this);
-	    this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 	}
 	
 	public void onDisable(){

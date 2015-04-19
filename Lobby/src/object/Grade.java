@@ -12,8 +12,12 @@ public class Grade {
 	public static ArrayList<Grade> gradeList;
 	
 	
-	public Grade(){
-		
+	public Grade(String name, int power, String prefixe, int multiplicateur){
+		this.name = name;
+		this.power = power;
+		this.prexife = prefixe;
+		this.multiplicateur = multiplicateur;
+		gradeList.add(this);
 	}
 	
 	public Grade getGrade(String name){
@@ -51,6 +55,17 @@ public class Grade {
 
 	public void setMultiplicateur(int multiplicateur) {
 		this.multiplicateur = multiplicateur;
+	}
+	
+	public static void recupGrade(){
+		ArrayList<ArrayList<String>> list = main.Api.BdDsendRequette("SELECT * FROM `listGrade`");
+		for(ArrayList<String> l : list){
+			String name = l.get(0);
+			int power = Integer.parseInt(l.get(1));
+			String prefixe = l.get(2);
+			int multiplicateur = Integer.parseInt(l.get(3));
+			new Grade(name, power, prefixe, multiplicateur);
+		}
 	}
 	
 	
