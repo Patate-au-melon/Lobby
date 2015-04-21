@@ -2,6 +2,7 @@ package joueur;
 
 import java.util.Iterator;
 
+import main.Main;
 import object.Joueur;
 
 import org.bukkit.Bukkit;
@@ -14,6 +15,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoueurEvent implements Listener{
 	
+	public JoueurEvent(Main main) {
+	}
+
 	@EventHandler
 	public void playerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
@@ -31,7 +35,7 @@ public class JoueurEvent implements Listener{
 		}else{
 			j = new object.Joueur(p);
 		}
-		setName(p, j);
+		setName(p, j); 
 	}
 	
 	private void setName(Player p, Joueur j){

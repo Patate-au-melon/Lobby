@@ -27,7 +27,7 @@ public class OnEnable {
 	}
 	
 	private void registerEvents(){
-		Bukkit.getPluginManager().registerEvents(new joueur.JoueurEvent(), Main.getPlugin());
+		//Bukkit.getPluginManager().registerEvents(new joueur.JoueurEvent(), Main.getPlugin());
 	}
 	
 }
