@@ -23,13 +23,17 @@ import com.google.common.io.ByteStreams;
 
 public class Api {
 	
+	/*
+	 * 
+	 * A lancer au onEnable()
+	 * 		BdDconnect(String url, String user, String password)
+	 * 
+	 */
+	
 	public static Connection cn;
 	private static boolean co = false;
-	private static String url = "jdbc:mysql://mysql-hbct.alwaysdata.net/hbct_plugin";
-	private static String user = "hbct_plugin";
-	private static String password = "jeje";
 	
-	public static void BdDconnect(){
+	public static void BdDconnect(String url, String user, String password){
 		if(!co){
 			try {
 				Class.forName("com.mysql.jdbc.Driver");

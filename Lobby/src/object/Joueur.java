@@ -7,6 +7,13 @@ import org.bukkit.entity.Player;
 
 public class Joueur {
 	
+	/*
+	 * 
+	 * A lancer au onEnable()
+	 * 		Creation de la liste joueurList
+	 * 
+	 */
+	
 	private String name;
 	private UUID uuid;
 	private Grade grade;
@@ -20,6 +27,7 @@ public class Joueur {
 	public Joueur(Player player){
 		this.name = player.getName();
 		this.uuid = player.getUniqueId();
+		
 	}
 	
 	public static Joueur getJoueur(String name){

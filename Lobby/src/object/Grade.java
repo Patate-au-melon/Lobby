@@ -4,6 +4,14 @@ import java.util.ArrayList;
 
 public class Grade {
 	
+	/*
+	 * 
+	 * A lancer au onEnable()
+	 * 		Creation de la liste gradeList
+	 * 		recupGrade() (apres le lancement de la base de donnee)
+	 * 
+	 */
+	
 	private String name;
 	private int power;
 	private String prexife;
