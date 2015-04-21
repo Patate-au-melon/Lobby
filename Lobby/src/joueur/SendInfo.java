@@ -22,7 +22,7 @@ public class SendInfo {
 					else if(m.equalsIgnoreCase("multiplicateur"))
 						rep = rep + j.getMultiplcateur() + " ";
 				}
-				new server.SendMessage(server, "infoJoueur", rep);
+				new server.SendMessage(server, "reponseRequestJoueur", rep);
 			}
 		}
 	}
