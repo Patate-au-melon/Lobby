@@ -3,6 +3,8 @@ package object;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import main.Api;
+
 import org.bukkit.entity.Player;
 
 public class Joueur {
@@ -27,7 +29,16 @@ public class Joueur {
 	public Joueur(Player player){
 		this.name = player.getName();
 		this.uuid = player.getUniqueId();
-		
+		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listJoueur`");
+		for(ArrayList<String> l : list){
+			if(l.get(0).equalsIgnoreCase(this.name) && l.get(1).equalsIgnoreCase(this.uuid.toString())){
+				this.grade = grade.getGrade(l.get(2));
+				this.server = "Lobby";
+				this.moneyMiniGames = Integer.parseInt(l.get(3));
+				this.moneyVIP = Integer.parseInt(l.get(4));
+				this.multiplcateur = Integer.parseInt(l.get(5));
+			}
+		}
 	}
 	
 	public static Joueur getJoueur(String name){
