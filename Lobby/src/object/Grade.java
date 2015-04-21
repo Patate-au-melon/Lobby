@@ -35,6 +35,10 @@ public class Grade {
 		}
 		return null;
 	}
+	
+	public String getName(){
+		return name;
+	}
 
 	public int getPower() {
 		return power;

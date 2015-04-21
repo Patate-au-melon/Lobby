@@ -12,7 +12,7 @@ public class SendInfo {
 				String rep = j.getName() + " ";
 				for(String m : msg){
 					if(m.equalsIgnoreCase("grade"))
-						rep = rep + j.getGrade() + " ";
+						rep = rep + j.getGrade().getName() + " ";
 					else if(m.equalsIgnoreCase("server"))
 						rep = rep + j.getServer() + " ";
 					else if(m.equalsIgnoreCase("moneyMiniGames"))
