@@ -18,9 +18,7 @@ public class Main extends JavaPlugin{
 		
 	}
 	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Api.transfertPlayerTo(getPlugin(), (Player)sender, "S2");
-		
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
 		return false;
 	}
 	
