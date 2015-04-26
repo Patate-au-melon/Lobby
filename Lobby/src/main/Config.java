@@ -12,6 +12,7 @@ public class Config {
 	private static String serverInfoPath = "plugins/NitroGames/serverInfo.yml"; 
 	private static String listServerNamePath = "plugins/NitroGames/listServerName.yml";
 	private static String signControlPath = "plugins/NitroGames/signControl.yml";
+	private static String passPath = "plugins/NitroGames/pass.yml";
 	
 	public static FileConfiguration getListServerNameConfig(){
 		File f = new File(listServerNamePath);
@@ -55,10 +56,25 @@ public class Config {
 		}
 	}
 	
+	public static FileConfiguration getPassConfig(){
+		File f = new File(passPath);
+		return YamlConfiguration.loadConfiguration(f);
+	}
+	
+	public static void savePassConfig(FileConfiguration config){
+		File f = new File(passPath);
+		try {
+			config.save(f);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void createConfig(){
 		recupListServerName();
 		createServerInfo();
 		createSignControl();
+		createPass();
 	}
 	
 	private static void recupListServerName(){
@@ -92,9 +108,24 @@ public class Config {
 			config.set("line3", "");
 			config.set("line4", "");
 			main.Config.setSignControl(config);
-			Bukkit.getLogger().info("Creation de la config serverInfo");
+			Bukkit.getLogger().info("Creation de la config signControl");
 			Bukkit.getLogger().warning("Merci de la remplir avant de relancer le serveur");
 			Bukkit.getServer().shutdown();
 		}
 	}
+	
+	private static void createPass(){
+		FileConfiguration config = main.Config.getPassConfig();
+		if(config.getString("url") == null || config.getString("url") == ""){
+			config.set("url", "");
+			config.set("user", "");
+			config.set("password", "");
+			main.Config.savePassConfig(config);
+			Bukkit.getLogger().info("Creation de la config pass");
+			Bukkit.getLogger().warning("Merci de la remplir avant de relancer le serveur");
+			Bukkit.getServer().shutdown();
+		}
+	}
+	
+	
 }

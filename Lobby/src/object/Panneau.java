@@ -1,11 +1,10 @@
 package object;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 
 public class Panneau {
@@ -18,14 +17,13 @@ public class Panneau {
 	private String server;
 	
 	public static ArrayList<Panneau> listSign;
+	public static HashMap<Location, String> listLoc;
 	
 	public Panneau(String server, Location location){
 		this.server = server;
 		this.loc = location;
-		Block bl = this.loc.getBlock();
-		if(bl.getType() == Material.WALL_SIGN || bl.getType() == Material.SIGN_POST){
-			listSign.add(this);
-		}
+		listLoc.put(loc, server);
+		listSign.add(this);
 	}
 	
 	public void setSign(String line1, String line2, String line3, String line4){
@@ -43,6 +41,19 @@ public class Panneau {
 				return p;
 		}
 		return null;
+	}
+	
+	public static Panneau getPanneau(Location loc){
+		for(Panneau pn : listSign){
+			if(pn.loc == loc){
+				return pn;
+			}
+		}
+		return null;
+	}
+	
+	public String getServer(){
+		return this.server; 
 	}
 	
 	private void update(){

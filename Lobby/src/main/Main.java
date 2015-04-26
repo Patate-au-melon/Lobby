@@ -12,7 +12,6 @@ public class Main extends JavaPlugin{
 	
 	public void onEnable(){
 		new OnEnable();
-		Bukkit.getPluginManager().registerEvents(new joueur.JoueurEvent(this), this);
 	}
 	
 	public void onDisable(){
