@@ -9,7 +9,6 @@ public class Transmit {
 			Bukkit.getServer().shutdown();
 		}
 		new signControl.Receive(server, label, message);
-		new joueur.SendInfo(server, label, message);
 		signControl.Event.receiveMessage(server, label, message);
 	}
 

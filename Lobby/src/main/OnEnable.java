@@ -21,19 +21,15 @@ public class OnEnable {
 		object.Panneau.listSign = new ArrayList<Panneau>();
 		object.Grade.gradeList = new ArrayList<Grade>();
 		object.Panneau.listLoc = new HashMap<>();
+		joueur.Main.onEnable();
 		Api.BdDconnect(url, user, password);
 		new signControl.Startup();
 		Config.createConfig();
 		object.Grade.recupGrade();
 		Bukkit.getMessenger().registerOutgoingPluginChannel(main.Main.getPlugin(), "BungeeCord");
-		registerEvents();
+		Bukkit.getPluginManager().registerEvents(new Event(), main.Main.getPlugin());
 		new server.ServerMain().runTaskAsynchronously(Main.getPlugin());
 		Bukkit.getLogger().info("Plugin actif");
-	}
-	
-	private void registerEvents(){
-		Bukkit.getPluginManager().registerEvents(new joueur.JoueurEvent(), Main.getPlugin());
-		Bukkit.getPluginManager().registerEvents(new signControl.Event(), main.Main.getPlugin());
 	}
 	
 }

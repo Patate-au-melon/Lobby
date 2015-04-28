@@ -28,7 +28,7 @@ public class Grade {
 		gradeList.add(this);
 	}
 	
-	public Grade getGrade(String name){
+	public static Grade getGrade(String name){
 		for(Grade g : gradeList){
 			if(g.name.equalsIgnoreCase(name))
 					return g;

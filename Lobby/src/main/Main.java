@@ -18,7 +18,11 @@ public class Main extends JavaPlugin{
 		
 	}
 	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if(label.equalsIgnoreCase("test")){
+			Player p = (Player) sender;
+			p.sendMessage(joueur.Main.moneyMiniGames.get(p.getUniqueId()) + " voici ton argent");
+		}
 		return false;
 	}
 	
