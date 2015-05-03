@@ -1,6 +1,8 @@
 package joueur;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -82,8 +84,8 @@ public class Event{
 	private static void prepareJoueurToLobby(Player p){	//Inventaire que le joueur a sur le lobby
 		Inventory inv = p.getInventory();
 		//Pour ajouter l'item de la boutique VIP
-		//ItemStack item = Item.accesBoutiqueVIP();
-		//inv.setItem(8, item);
+		ItemStack item = Item.accesBoutiqueVIP();
+		inv.setItem(8, item);
 		if(Main.grade.get(p.getUniqueId()).getPower() < 2){ // c'est un membre du staff
 			inv.setItem(0, Item.accesAdminListServer());
 		}
@@ -100,6 +102,7 @@ public class Event{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void clickIntoInventory(InventoryClickEvent e){
 		Player p = (Player) e.getWhoClicked();
 		UUID uuid = p.getUniqueId();
@@ -124,6 +127,20 @@ public class Event{
 							prepa.execute();
 						} catch (Exception e2) {
 							e2.printStackTrace();
+						}
+						requette = "INSERT INTO `Vip` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
+						Date date = new Date(System.currentTimeMillis());
+						date.setMonth(date.getMonth() +1);
+						try {
+							PreparedStatement pr = main.Api.cn.prepareStatement(requette);
+							pr.setString(1, p.getName());
+							pr.setString(2, uuid.toString());
+							pr.setString(3, "VIP");
+							pr.setDate(4, date);
+							
+							pr.execute();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
 						}
 						Main.grade.replace(p.getUniqueId(), object.Grade.getGrade("VIP"));
 						Main.moneyVIP.replace(p.getUniqueId(), money);
