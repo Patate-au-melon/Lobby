@@ -1,12 +1,10 @@
 package joueur;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 
 public class Item {
 	

@@ -49,7 +49,6 @@ public class ReceiveMessage extends BukkitRunnable{
 			}
 			new Transmit(server, label, mes);
 		} catch (Exception e) {
-			Bukkit.getLogger().warning("Erreur lors du traitement du message");
 		}
 	}
 	
