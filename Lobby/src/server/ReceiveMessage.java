@@ -29,6 +29,7 @@ public class ReceiveMessage extends BukkitRunnable{
 				} catch (Exception e) {
 					this.cancel();
 					Bukkit.getLogger().warning("Erreur lie a la deconnexion d'un serveur");
+					ServerMain.listServer.remove(s);
 					break;
 				}
 			}

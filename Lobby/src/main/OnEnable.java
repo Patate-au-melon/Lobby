@@ -20,6 +20,7 @@ public class OnEnable {
 		password = "jeje";
 		object.Panneau.listSign = new ArrayList<Panneau>();
 		object.Grade.gradeList = new ArrayList<Grade>();
+		joueur.Inv.nbPlayer = new HashMap<>();
 		object.Panneau.listLoc = new HashMap<>();
 		joueur.Main.onEnable();
 		Api.BdDconnect(url, user, password);

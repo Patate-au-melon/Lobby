@@ -23,6 +23,7 @@ public class Event{
 		if(label.equalsIgnoreCase("sendJoueur")){
 			UUID id = UUID.fromString(message);
 			Player p = Bukkit.getPlayer(id);
+			joueur.Main.server.replace(id, server);
 			main.Api.transfertPlayerTo(main.Main.getPlugin(), p, server);
 		}
 	}

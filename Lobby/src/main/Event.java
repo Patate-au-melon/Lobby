@@ -1,6 +1,7 @@
 package main;
 
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -23,38 +24,49 @@ public class Event implements Listener{
 	
 	@EventHandler
 	public void noDropItem(PlayerDropItemEvent e){
-		e.setCancelled(true);
+		e.setCancelled(testStaff(e.getPlayer()));
 	}
 	
 	@EventHandler
 	public void noPlaceBlock(BlockPlaceEvent e){
-		e.setCancelled(true);
+		e.setCancelled(testStaff(e.getPlayer()));
 	}
 	
 	@EventHandler
 	public void breakBlock(BlockBreakEvent e){
-		e.setCancelled(true);
+		e.setCancelled(testStaff(e.getPlayer()));
 	}
 	
 	@EventHandler
 	public void clickSign(PlayerInteractEvent e){
-		joueur.JoueurEvent.clickInventoryGodlIngot(e);
+		joueur.Event.interactEvent(e);
 		signControl.Event.clickSign(e);
 	}
 	
 	@EventHandler
 	public void clickIntoInventory(InventoryClickEvent e){
-		//joueur.JoueurEvent.clickIntoInventory(e);
+		joueur.Event.clickIntoInventory(e);
+		e.setCancelled(testStaff((Player)e.getWhoClicked())); //A gerer en car pb item
 	}
 	
 	@EventHandler
 	public void playerQuit(PlayerQuitEvent e){
-		joueur.JoueurEvent.playerQuit(e);
+		joueur.Event.playerQuit(e);
 	}
 	
 	@EventHandler
 	public void playerJoin(PlayerJoinEvent e){
-		joueur.JoueurEvent.playerJoin(e);
+		joueur.Event.playerJoin(e);
+	}
+	
+	private static boolean testStaff(Player p){
+		int cheachStaff = 5;
+		int playerPower = joueur.Main.grade.get(p.getUniqueId()).getPower();
+		if(playerPower < cheachStaff){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
  	
