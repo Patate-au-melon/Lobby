@@ -82,7 +82,7 @@ public class Config {
 		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer`");
 		for(int i = 0; i <list.size();i++){
 			ArrayList<String> l = list.get(i);
-			config.set(l.get(0), l.get(1));
+			config.set(l.get(1), l.get(0));
 		}
 		main.Config.saveListServerNameConfig(config);
 		Bukkit.getLogger().info("Mise a jour de la config ListServerName termine");
