@@ -1,8 +1,6 @@
 package joueur;
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -50,20 +48,10 @@ public class Event{
 				Main.moneyVIP.put(uuid, 0);
 				Main.multiplicateur.put(uuid, 0);
 				String requette = "insert into `listJoueur` (`name`, `UUID`, `grade`, `moneyMiniGames`, `moneyVIP`, `multiplicateur`)" + "values (?,?,?,?,?,?)";
-				try {
-					PreparedStatement prepa = main.Api.cn.prepareStatement(requette);
-					prepa.setString(1, p.getName());
-					prepa.setString(2, uuid.toString());
-					prepa.setString(3, "Joueur");
-					prepa.setString(4, "0");
-					prepa.setString(5, "0");
-					prepa.setString(6, "0");
-					prepa.execute(); //Mise a jour de la base de donnee
-				} catch (Exception ex) {
-					ex.printStackTrace();
+				String[] l = {p.getName(), p.getUniqueId().toString(), "Joueur", "0", "0", "0"};
+				main.Api.BdDsendRequetteNoReturn(requette, l);
 				}
-			}
-			Api.sendTitle(p, "NitroGAmes", "", 60);
+			Api.sendTitle(p, "NitroGames", "", 60);
 			prepareJoueurToLobby(p);
 		}
 	}
@@ -109,7 +97,7 @@ public class Event{
 		if(e.getInventory().getName().equalsIgnoreCase(Inv.moneyVIP(p).getName())){ //Inventaire boutique VIP
 			ItemStack item = e.getCurrentItem();
 			if(item != null){ //Verification que l'on click sur un item
-				if(item.equals(Item.joueurIsVIP())){ //Le joueur est deja VIP, pas besoin qu'il en est un autre
+				if(item.equals(Item.joueurIsVIP())){ //Le joueur a deja un grade, pas besoin qu'il en est un autre
 					p.closeInventory();
 					p.sendMessage("§4Tu es déjà "+ Main.grade.get(uuid).getName());
 				}else if(item.equals(Item.joueurIsNotVIP())){ //Le joueur n'est pas VIP
@@ -118,30 +106,14 @@ public class Event{
 					if(money >= 0){ //Le joueur peut se payer le VIP
 						String requette = "UPDATE `listJoueur` SET `grade`=?,`moneyVIP`=? WHERE `UUID` =?";
 						String[] l = {"VIP",money +"", uuid.toString()};
-						PreparedStatement prepa;
-						try {
-							prepa = main.Api.cn.prepareStatement(requette);
-							prepa.setString(1, l[0]);
-							prepa.setString(2, l[1]);
-							prepa.setString(3, l[2]);
-							prepa.execute();
-						} catch (Exception e2) {
-							e2.printStackTrace();
-						}
+						main.Api.BdDsendRequetteNoReturn(requette, l);
 						requette = "INSERT INTO `Vip` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
 						Date date = new Date(System.currentTimeMillis());
 						date.setMonth(date.getMonth() +1);
-						try {
-							PreparedStatement pr = main.Api.cn.prepareStatement(requette);
-							pr.setString(1, p.getName());
-							pr.setString(2, uuid.toString());
-							pr.setString(3, "VIP");
-							pr.setDate(4, date);
-							
-							pr.execute();
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						}
+						String[] li = {p.getName(), p.getUniqueId().toString(), "VIP", date.toString()};
+						main.Api.BdDsendRequetteNoReturn(requette, li);
+						requette = "INSERT INTO `VipHistory` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
+						main.Api.BdDsendRequetteNoReturn(requette, li);
 						Main.grade.replace(p.getUniqueId(), object.Grade.getGrade("VIP"));
 						Main.moneyVIP.replace(p.getUniqueId(), money);
 						p.closeInventory();
@@ -154,6 +126,5 @@ public class Event{
 			}
 		}
 	}
-	
 
 }

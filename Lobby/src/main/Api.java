@@ -132,6 +132,28 @@ public class Api {
 		return null;
 	}
 	
+	public static boolean BdDsendRequetteNoReturn(String requette, String[] args){
+		if(!co){
+			System.out.println("Pas de connexion a la base de donnee");
+			return false;
+		}
+		
+		try {
+			PreparedStatement prepa = cn.prepareStatement(requette);
+			int n = 1;
+			for(int i = 0 ; i< args.length; i++){
+				prepa.setString(n, args[i]);
+				n++;
+			}
+			boolean test = prepa.execute();
+			return test;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	//Envoyer un joueur sur un autre serveur
 	public static void transfertPlayerTo(Plugin plugin,Player player, String server){
 		String name = player.getName();
