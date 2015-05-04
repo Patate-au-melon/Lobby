@@ -10,14 +10,10 @@ import org.bukkit.Bukkit;
 
 public class OnEnable {
 	
-	private static String url = Config.getPassConfig().getString("url");
-	private static String user = Config.getPassConfig().getString("user");
-	private static String password = Config.getPassConfig().getString("password");
-	
 	public OnEnable(){
-		url = "jdbc:mysql://mysql-hbct.alwaysdata.net/hbct_plugin";
-		user = "hbct_plugin";
-		password = "jeje";
+		String url = "jdbc:mysql://publicsql-1.pulseheberg.net/service_35502";
+		String user = "service_35502";
+		String password = "V7f9ebUn31";
 		object.Panneau.listSign = new ArrayList<Panneau>();
 		object.Grade.gradeList = new ArrayList<Grade>();
 		joueur.Inv.nbPlayer = new HashMap<>();
