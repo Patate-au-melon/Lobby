@@ -116,8 +116,7 @@ public class Config {
 	
 	private static void createPass(){
 		FileConfiguration config = main.Config.getPassConfig();
-		if(config.getString("url") == null || config.getString("url") == ""){
-			config.set("url", "");
+		if(config.getString("user") == null || config.getString("user") == ""){
 			config.set("user", "");
 			config.set("password", "");
 			main.Config.savePassConfig(config);

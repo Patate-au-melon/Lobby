@@ -12,8 +12,8 @@ public class OnEnable {
 	
 	public OnEnable(){
 		String url = "jdbc:mysql://publicsql-1.pulseheberg.net/service_35502";
-		String user = "service_35502";
-		String password = "V7f9ebUn31";
+		String user = Config.getPassConfig().getString("user");
+		String password = Config.getPassConfig().getString("password");
 		object.Panneau.listSign = new ArrayList<Panneau>();
 		object.Grade.gradeList = new ArrayList<Grade>();
 		joueur.Inv.nbPlayer = new HashMap<>();
