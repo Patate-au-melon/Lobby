@@ -45,7 +45,8 @@ public class Event implements Listener{
 	
 	@EventHandler
 	public void clickIntoInventory(InventoryClickEvent e){
-		joueur.Event.clickIntoInventory(e);
+		joueur.Event.clickIntoInventoryBoutiqueVIP(e);
+		joueur.Event.clickIntoInventoryListeServeur(e);
 		e.setCancelled(testStaff((Player)e.getWhoClicked())); //A gerer en car pb item
 	}
 	
@@ -60,9 +61,9 @@ public class Event implements Listener{
 	}
 	
 	private static boolean testStaff(Player p){
-		int cheachStaff = 5;
+		int checkStaff  = 4;
 		int playerPower = joueur.Main.grade.get(p.getUniqueId()).getPower();
-		if(playerPower < cheachStaff){
+		if(playerPower > checkStaff){
 			return true;
 		}else{
 			return false;

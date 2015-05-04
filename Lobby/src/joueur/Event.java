@@ -86,17 +86,17 @@ public class Event{
 	public static void interactEvent(PlayerInteractEvent e){
 		Player p = e.getPlayer();
 		ItemStack item = p.getItemInHand();
-		if(item.equals(Item.accesBoutiqueVIP()) && item != null){
+		if(item.equals(Item.accesBoutiqueVIP()) && item != null){ //Ouverture de la boutique VIP
 			p.openInventory(Inv.moneyVIP(p));
-		}else if(item.equals(Item.accesAdminListServer()) && item != null){
+		}else if(item.equals(Item.accesAdminListServer()) && item != null){ //Ouverture de la liste des serveurs
 			p.openInventory(Inv.listeServer(p));
 		}
 	}
 	
-	public static void clickIntoInventory(InventoryClickEvent e){
+	public static void clickIntoInventoryBoutiqueVIP(InventoryClickEvent e){
 		Player p = (Player) e.getWhoClicked();
 		UUID uuid = p.getUniqueId();
-		if(e.getInventory().getName().equalsIgnoreCase(Inv.moneyVIP(p).getName())){ //Inventaire boutique VIP
+		if(e.getInventory().getName().equalsIgnoreCase(Inv.moneyVIP(p).getName())){//Inventaire boutique VIP
 			ItemStack item = e.getCurrentItem();
 			if(item != null){ //Verification que l'on click sur un item
 				if(item.equals(Item.joueurIsVIP()) || item.equals(Item.joueurIsVIPPlus())){ //Le joueur a deja un grade, pas besoin qu'il en est un autre
@@ -144,6 +144,15 @@ public class Event{
 					}
 				}
 			}
+			e.setCancelled(true);
+		}
+	}
+	
+	public static void clickIntoInventoryListeServeur(InventoryClickEvent e){
+		Player p = (Player) e.getWhoClicked();
+		if(e.getInventory().getName().equalsIgnoreCase(Inv.listeServer(p).getName())){
+			p.closeInventory();
+			e.setCancelled(true);
 		}
 	}
 	
