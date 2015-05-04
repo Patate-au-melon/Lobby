@@ -13,6 +13,13 @@ public class ReceiveMessage {
 			}
 		}else if(label.equalsIgnoreCase("returnLobby")){
 			Main.server.replace(UUID.fromString(message), "Lobby");
+		}else if(label.equalsIgnoreCase("playerQuit")){
+			UUID uuid = UUID.fromString(message);
+			Main.grade.remove(uuid);
+			Main.moneyMiniGames.remove(uuid);
+			Main.moneyVIP.remove(uuid);
+			Main.multiplicateur.remove(uuid);
+			Main.server.remove(uuid);
 		}
 	}
 
