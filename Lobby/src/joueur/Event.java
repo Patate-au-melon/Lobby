@@ -23,11 +23,8 @@ public class Event{
 		Player p = e.getPlayer();
 		UUID uuid= p.getUniqueId();
 		if(Main.server.containsKey(uuid)){ //Le joueur c'est deja connecte sur le serveur
-			if(Main.server.get(uuid).equalsIgnoreCase("lobby")){ //Le joueur etait sur le lobby, ne doit pas être possible
+			if(Main.server.get(uuid).equalsIgnoreCase("lobby")){ //Le joueur revient d'un autre serveur
 				prepareJoueurToLobby(p);
-				System.out.println("Merci de prevenir jeje2208 si vous voyez ce message dans la console."); //Ligne de prevention en cas d'arriver de cette situation pour voir si il y a une erreur
-				p.sendMessage("Bonjour, tu as déclanché une erreur merci de bien vouloir prendre contact avec le staff, et plus particulièrement jeje2208");
-				p.sendMessage("Merci d'aider le serveur dans son développement");
 			}else{ //Le joueur n'etait pas sur le lobby
 				String server = Main.server.get(uuid);
 				new server.SendMessage(server, "sendJoueur", uuid.toString());
