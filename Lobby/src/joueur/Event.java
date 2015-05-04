@@ -41,6 +41,7 @@ public class Event{
 					Main.moneyMiniGames.put(uuid, Integer.parseInt(l.get(3)));
 					Main.moneyVIP.put(uuid, Integer.parseInt(l.get(4)));
 					Main.multiplicateur.put(uuid, Integer.parseInt(l.get(5)));
+					Main.server.put(uuid, "Lobby");
 					test = true;
 					break;
 				}
@@ -50,6 +51,7 @@ public class Event{
 				Main.moneyMiniGames.put(uuid, 0);
 				Main.moneyVIP.put(uuid, 0);
 				Main.multiplicateur.put(uuid, 0);
+				Main.server.put(uuid, "Lobby");
 				String requette = "insert into `listJoueur` (`name`, `UUID`, `grade`, `moneyMiniGames`, `moneyVIP`, `multiplicateur`)" + "values (?,?,?,?,?,?)";
 				String[] l = {p.getName(), p.getUniqueId().toString(), "Joueur", "0", "0", "0"};
 				main.Api.BdDsendRequetteNoReturn(requette, l);
