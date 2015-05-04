@@ -22,6 +22,7 @@ public class Main extends JavaPlugin{
 		if(label.equalsIgnoreCase("test")){
 			Player p = (Player) sender;
 			p.sendMessage(joueur.Main.moneyMiniGames.get(p.getUniqueId()) + " voici ton argent");
+			p.sendMessage("Voici ton grade "+joueur.Main.grade.get(p.getUniqueId()).getName() +", tu as un power de "+ joueur.Main.grade.get(p.getUniqueId()).getPower());
 		}
 		return false;
 	}

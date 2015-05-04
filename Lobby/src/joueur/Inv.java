@@ -23,10 +23,18 @@ public class Inv {
 	public static Inventory moneyVIP(Player p){
 		UUID uuid = p.getUniqueId();
 		Inventory inv = Bukkit.createInventory(p, InventoryType.HOPPER, "Tu as §6§l" + Main.moneyVIP.get(uuid) + "§r NitroCoins");
-		if(Main.grade.get(uuid).getPower() < 7){ // C'est un VIP
-			inv.setItem(2, Item.joueurIsVIP());
+		if(Main.grade.get(uuid).getPower() < 6){// C'est un VIP
+			inv.setItem(1, Item.joueurIsVIP());
+			inv.setItem(3, Item.joueurIsVIPPlus());
+		}else if(Main.grade.get(uuid).getPower()<7){ //C'est un VIP+
+			inv.setItem(1, Item.joueurIsVIP());
+			inv.setItem(3, Item.joueurIsNotVIPPlusFor1Months());
+			inv.setItem(4, Item.joueurIsNotVIPPlusFor3Months());
 		}else{ //Ce n'est pas un VIP
-			inv.setItem(2, Item.joueurIsNotVIP());
+			inv.setItem(0, Item.joueurIsNotVIPFor1Month());
+			inv.setItem(1, Item.joueurIsNotVIPFor3Months());
+			inv.setItem(3, Item.joueurIsNotVIPPlusFor1Months());
+			inv.setItem(4, Item.joueurIsNotVIPPlusFor3Months());
 		}
 		return inv;
 	}

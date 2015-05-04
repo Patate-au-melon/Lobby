@@ -20,17 +20,49 @@ public class Item {
 		return item;
 	}
 	
-	public static ItemStack joueurIsNotVIP(){
+	public static ItemStack joueurIsNotVIPFor1Month(){
 		ArrayList<String> lore = new ArrayList<>();
 		lore.add("Pour acheter le VIP");
 		lore.add("pour un mois");
-		lore.add("");
-		lore.add("Acheter le VIP pour");
-		lore.add("plus longtemps sur notre site");
-		lore.add("§1www.nitrogames.fr");
 		ItemStack item = new ItemStack(Material.PUMPKIN);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6Achat VIP");
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public static ItemStack joueurIsNotVIPFor3Months(){
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Pour acheter le VIP");
+		lore.add("pour trois mois");
+		ItemStack item = new ItemStack(Material.PUMPKIN);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6Achat VIP");
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public static ItemStack joueurIsNotVIPPlusFor1Months(){
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Pour acheter le VIP+");
+		lore.add("pour un mois");
+		ItemStack item = new ItemStack(Material.PUMPKIN);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6Achat VIP+");
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public static ItemStack joueurIsNotVIPPlusFor3Months(){
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Pour acheter le VIP+");
+		lore.add("pour trois mois");
+		ItemStack item = new ItemStack(Material.PUMPKIN);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6Achat VIP+");
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;
@@ -44,6 +76,19 @@ public class Item {
 		ItemStack item = new ItemStack(Material.JACK_O_LANTERN);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6Achat VIP");
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public static ItemStack joueurIsVIPPlus(){
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("§4Impossible d'acheter le VIP+");
+		lore.add("");
+		lore.add("Tu as déjà un VIP+ d'activer");
+		ItemStack item = new ItemStack(Material.JACK_O_LANTERN);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6Achat VIP+");
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;

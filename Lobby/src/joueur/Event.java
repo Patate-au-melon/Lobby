@@ -16,6 +16,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class Event{
 	
+	public static int prixVIP = 1500;
+	public static int prixVIPPlus = 5000;
+	
 	public static void playerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID uuid= p.getUniqueId();
@@ -90,34 +93,51 @@ public class Event{
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void clickIntoInventory(InventoryClickEvent e){
 		Player p = (Player) e.getWhoClicked();
 		UUID uuid = p.getUniqueId();
 		if(e.getInventory().getName().equalsIgnoreCase(Inv.moneyVIP(p).getName())){ //Inventaire boutique VIP
 			ItemStack item = e.getCurrentItem();
 			if(item != null){ //Verification que l'on click sur un item
-				if(item.equals(Item.joueurIsVIP())){ //Le joueur a deja un grade, pas besoin qu'il en est un autre
+				if(item.equals(Item.joueurIsVIP()) || item.equals(Item.joueurIsVIPPlus())){ //Le joueur a deja un grade, pas besoin qu'il en est un autre
 					p.closeInventory();
 					p.sendMessage("§4Tu es déjà "+ Main.grade.get(uuid).getName());
-				}else if(item.equals(Item.joueurIsNotVIP())){ //Le joueur n'est pas VIP
-					int prixVIP = 1500;
+				}else if(item.equals(Item.joueurIsNotVIPFor1Month())){ //Le joueur n'est pas VIP
 					int money = Main.moneyVIP.get(uuid) - prixVIP;
 					if(money >= 0){ //Le joueur peut se payer le VIP
-						String requette = "UPDATE `listJoueur` SET `grade`=?,`moneyVIP`=? WHERE `UUID` =?";
-						String[] l = {"VIP",money +"", uuid.toString()};
-						main.Api.BdDsendRequetteNoReturn(requette, l);
-						requette = "INSERT INTO `Vip` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
-						Date date = new Date(System.currentTimeMillis());
-						date.setMonth(date.getMonth() +1);
-						String[] li = {p.getName(), p.getUniqueId().toString(), "VIP", date.toString()};
-						main.Api.BdDsendRequetteNoReturn(requette, li);
-						requette = "INSERT INTO `VipHistory` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
-						main.Api.BdDsendRequetteNoReturn(requette, li);
-						Main.grade.replace(p.getUniqueId(), object.Grade.getGrade("VIP"));
-						Main.moneyVIP.replace(p.getUniqueId(), money);
+						updateGrade("VIP", 1, p, money);
 						p.closeInventory();
 						p.sendMessage("§6Tu viens de passer VIP pour un mois, il te reste §l" + money  + "§r§6 NitroCoins");
+					}else{ //Le joueur ne peut pas se payer le VIP
+						p.closeInventory();
+						p.sendMessage("§4Tu n'as pas assez d'argent, tu peux en acheter sur §r§1nitrogames.fr");
+					}
+				}else if(item.equals(Item.joueurIsNotVIPFor3Months())){
+					int money = Main.moneyVIP.get(uuid) - prixVIP * 3;
+					if(money >= 0){ //Le joueur peut se payer le VIP
+						updateGrade("VIP", 3, p, money);
+						p.closeInventory();
+						p.sendMessage("§6Tu viens de passer VIP pour trois mois, il te reste §l" + money  + "§r§6 NitroCoins");
+					}else{ //Le joueur ne peut pas se payer le VIP
+						p.closeInventory();
+						p.sendMessage("§4Tu n'as pas assez d'argent, tu peux en acheter sur §r§1nitrogames.fr");
+					}
+				}else if(item.equals(Item.joueurIsNotVIPPlusFor1Months())){
+					int money = Main.moneyVIP.get(uuid) - prixVIPPlus;
+					if(money >= 0){ //Le joueur peut se payer le VIP
+						updateGrade("VIP+", 1, p, money);
+						p.closeInventory();
+						p.sendMessage("§6Tu viens de passer VIP+ pour un mois, il te reste §l" + money  + "§r§6 NitroCoins");
+					}else{ //Le joueur ne peut pas se payer le VIP
+						p.closeInventory();
+						p.sendMessage("§4Tu n'as pas assez d'argent, tu peux en acheter sur §r§1nitrogames.fr");
+					}
+				}else if(item.equals(Item.joueurIsNotVIPPlusFor3Months())){
+					int money = Main.moneyVIP.get(uuid) - prixVIPPlus * 3;
+					if(money >= 0){ //Le joueur peut se payer le VIP
+						updateGrade("VIP+", 3, p, money);
+						p.closeInventory();
+						p.sendMessage("§6Tu viens de passer VIP+ pour trois mois, il te reste §l" + money  + "§r§6 NitroCoins");
 					}else{ //Le joueur ne peut pas se payer le VIP
 						p.closeInventory();
 						p.sendMessage("§4Tu n'as pas assez d'argent, tu peux en acheter sur §r§1nitrogames.fr");
@@ -125,6 +145,22 @@ public class Event{
 				}
 			}
 		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	private static void updateGrade(String Grade, int MonthTime, Player p, int money){
+		String requette = "UPDATE `listJoueur` SET `grade`=?,`moneyVIP`=? WHERE `UUID` =?";
+		String[] l = {Grade,money +"", p.getUniqueId().toString()};
+		main.Api.BdDsendRequetteNoReturn(requette, l);
+		requette = "INSERT INTO `Vip` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
+		Date date = new Date(System.currentTimeMillis());
+		date.setMonth(date.getMonth() +MonthTime);
+		String[] li = {p.getName(), p.getUniqueId().toString(), Grade, date.toString()};
+		main.Api.BdDsendRequetteNoReturn(requette, li);
+		requette = "INSERT INTO `VipHistory` (`name`, `uuid`, `grade`, `dateOfBegin`, `dateOfEnd`) VALUES (?, ?, ?, NOW(), ?)";
+		main.Api.BdDsendRequetteNoReturn(requette, li);
+		Main.grade.replace(p.getUniqueId(), object.Grade.getGrade(Grade));
+		Main.moneyVIP.replace(p.getUniqueId(), money);
 	}
 
 }
