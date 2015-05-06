@@ -110,7 +110,6 @@ public class Item {
 	public static ItemStack serverIsOn(String serverName, String nbPlayer, String serverPort){
 		ArrayList<String> lore = new ArrayList<>();
 		lore.add("Il y a actuellement " + nbPlayer + " joueurs sur ce serveur");
-		lore.add("Le serveur est connecté sur le port "+ serverPort);
 		ItemStack item = new ItemStack(Material.WOOL);
 		item.setDurability((short) 13);
 		ItemMeta meta = item.getItemMeta();
