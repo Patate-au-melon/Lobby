@@ -8,7 +8,7 @@ public class Transmit {
 		traitement(server, label, message);
 		new signControl.Receive(server, label, message);
 		signControl.Event.receiveMessage(server, label, message);
-		joueur.ReceiveMessage.receive(server, label, message);
+		joueur.Message.receive(server, label, message);
 	}
 	
 	private static void traitement(String server, String label, String message){

@@ -3,5 +3,5 @@ author: jeje2208-Saulunaire
 main: main.Main
 version: 1.0.0
 commands:
-  test:
-    description: test
+  update:
+    description: Mettre a jour les donnee d un joueur
