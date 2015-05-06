@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class Event implements Listener{
@@ -58,6 +59,11 @@ public class Event implements Listener{
 	@EventHandler
 	public void playerJoin(PlayerJoinEvent e){
 		joueur.Event.playerJoin(e);
+	}
+	
+	@EventHandler
+	public void playerRecupItem(PlayerPickupItemEvent e){
+		e.setCancelled(testStaff(e.getPlayer()));
 	}
 	
 	private static boolean testStaff(Player p){
