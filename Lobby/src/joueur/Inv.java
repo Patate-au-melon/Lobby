@@ -57,7 +57,7 @@ public class Inv {
 				inv.setItem(i, Item.serverIsOff(serverName, serverPort));
 			}
 			
-			if(serverName.equalsIgnoreCase(main.Config.getServerInfo().getString("name")) && serverPort.equalsIgnoreCase(main.Config.getServerInfo().getString("port"))){
+			if(serverName.equalsIgnoreCase(Bukkit.getServerName()) && serverPort.equalsIgnoreCase(main.Main.localPort+"")){
 				inv.setItem(i, Item.serverIsOn(serverName, Bukkit.getOnlinePlayers().size() +"", serverPort));
 			}
 		}

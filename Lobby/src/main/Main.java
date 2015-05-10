@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
 	
+	public static int localPort;
+	
 	public void onEnable(){
 		new OnEnable();
 	}

@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Config {
 	
-	private static String serverInfoPath = "plugins/NitroGames/serverInfo.yml"; 
 	private static String listServerNamePath = "plugins/NitroGames/listServerName.yml";
 	private static String signControlPath = "plugins/NitroGames/signControl.yml";
 	private static String passPath = "plugins/NitroGames/pass.yml";
@@ -24,20 +23,6 @@ public class Config {
 		try {
 			config.save(f);
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static FileConfiguration getServerInfo(){
-		File f = new File(serverInfoPath);
-		return YamlConfiguration.loadConfiguration(f);
-	}
-	
-	public static void setServerInfo(FileConfiguration config){
-		try {
-			config.save(new File(serverInfoPath));
-		} catch (Exception e) {
-			Bukkit.getLogger().warning("Erreur lie a la sauvegarde de la config serverInfo");
 			e.printStackTrace();
 		}
 	}
@@ -72,7 +57,6 @@ public class Config {
 	
 	public static void createConfig(){
 		recupListServerName();
-		createServerInfo();
 		createSignControl();
 		createPass();
 	}
@@ -86,18 +70,6 @@ public class Config {
 		}
 		main.Config.saveListServerNameConfig(config);
 		Bukkit.getLogger().info("Mise a jour de la config ListServerName termine");
-	}
-	
-	private static void createServerInfo(){
-		FileConfiguration config = main.Config.getServerInfo();
-		if(config.getString("name") == null || config.getString("name") == ""){
-			config.set("name", "");
-			config.set("port", "");
-			main.Config.setServerInfo(config);
-			Bukkit.getLogger().info("Creation de la config serverInfo");
-			Bukkit.getLogger().warning("Merci de la remplir avant de relancer le serveur");
-			Bukkit.getServer().shutdown();
-		}
 	}
 	
 	private static void createSignControl(){

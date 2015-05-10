@@ -20,6 +20,7 @@ public class OnEnable {
 		object.Panneau.listLoc = new HashMap<>();
 		joueur.Main.onEnable();
 		Api.BdDconnect(url, user, password);
+		recuplocalPort();
 		new signControl.Startup();
 		Config.createConfig();
 		object.Grade.recupGrade();
@@ -27,6 +28,17 @@ public class OnEnable {
 		Bukkit.getPluginManager().registerEvents(new Event(), main.Main.getPlugin());
 		new server.ServerMain().runTaskAsynchronously(Main.getPlugin());
 		Bukkit.getLogger().info("Plugin actif");
+	}
+	
+	private static void recuplocalPort(){
+		String[] a = {Bukkit.getServerName()};
+		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer` WHERE `ServerName` = ?;", a);
+		for(ArrayList<String> l : list){
+			if(l.get(0).equalsIgnoreCase(Bukkit.getServerName())){
+				Main.localPort = Integer.parseInt(l.get(1));
+				System.out.println(Main.localPort);
+			}
+		}
 	}
 	
 }
