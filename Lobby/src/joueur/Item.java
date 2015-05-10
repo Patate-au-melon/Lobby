@@ -121,7 +121,6 @@ public class Item {
 	
 	public static ItemStack serverIsOff(String serverName, String serverPort){
 		ArrayList<String> lore = new ArrayList<>();
-		lore.add("Le serveur est connecté sur le port "+ serverPort);
 		ItemStack item = new ItemStack(Material.WOOL);
 		item.setDurability((short) 14);
 		ItemMeta meta = item.getItemMeta();
