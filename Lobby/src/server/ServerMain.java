@@ -20,7 +20,7 @@ public class ServerMain extends BukkitRunnable{
 	@Override
 	public void run() {
 		try {
-			ss = new ServerSocket(25600);
+			ss = new ServerSocket(main.Main.localPort);
 			Bukkit.getLogger().info("Serveur de communication entre serveur actif");
 			while(true){
 				Socket s = ss.accept();
