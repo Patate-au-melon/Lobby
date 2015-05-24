@@ -1,7 +1,6 @@
 package main;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,94 +8,33 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Config {
 	
-	private static String listServerNamePath = "plugins/NitroGames/listServerName.yml";
-	private static String signControlPath = "plugins/NitroGames/signControl.yml";
-	private static String passPath = "plugins/NitroGames/pass.yml";
-	
-	public static FileConfiguration getListServerNameConfig(){
-		File f = new File(listServerNamePath);
-		return YamlConfiguration.loadConfiguration(f);
-	}
-	
-	public static void saveListServerNameConfig(FileConfiguration config){
-		File f = new File(listServerNamePath);
-		try {
-			config.save(f);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static FileConfiguration getSignControl(){
-		File f = new File(signControlPath);
-		return YamlConfiguration.loadConfiguration(f);
-	}
-	
-	public static void setSignControl(FileConfiguration config){
-		try {
-			config.save(new File(signControlPath));
-		} catch (Exception e) {
-			Bukkit.getLogger().warning("Erreur lie a la sauvegarde de la config serverInfo");
-			e.printStackTrace();
-		}
-	}
+	private static String pathPass = "plugins/NitroGames/pass.yml";
 	
 	public static FileConfiguration getPassConfig(){
-		File f = new File(passPath);
+		File f = new File(pathPass);
 		return YamlConfiguration.loadConfiguration(f);
 	}
 	
-	public static void savePassConfig(FileConfiguration config){
-		File f = new File(passPath);
+	public static void setPassConfg(FileConfiguration config){
+		File f = new File(pathPass);
 		try {
 			config.save(f);
 		} catch (Exception e) {
 			e.printStackTrace();
+			Bukkit.getLogger().warning("Erreur dans la sauvegarde de la config pass.yml");
 		}
 	}
 	
-	public static void createConfig(){
-		recupListServerName();
-		createSignControl();
-		createPass();
-	}
-	
-	private static void recupListServerName(){
-		FileConfiguration config = main.Config.getListServerNameConfig();
-		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer`");
-		for(int i = 0; i <list.size();i++){
-			ArrayList<String> l = list.get(i);
-			config.set(l.get(1), l.get(0));
-		}
-		main.Config.saveListServerNameConfig(config);
-		Bukkit.getLogger().info("Mise a jour de la config ListServerName termine");
-	}
-	
-	private static void createSignControl(){
-		FileConfiguration config = main.Config.getSignControl();
-		if(config.getString("line1") == null || config.getString("line1") == ""){
-			config.set("line1", "");
-			config.set("line2", "");
-			config.set("line3", "");
-			config.set("line4", "");
-			main.Config.setSignControl(config);
-			Bukkit.getLogger().info("Creation de la config signControl");
-			Bukkit.getLogger().warning("Merci de la remplir avant de relancer le serveur");
-			Bukkit.getServer().shutdown();
+	public static void passCreate(){
+		FileConfiguration config = getPassConfig();
+		if(config.getString("BaseDeDonnee.user") == null || config.getString("BaseDeDonnee.user") == ""){
+			config.set("BaseDeDonnee.dev", "");
+			config.set("BaseDeDonnee.user", "");
+			config.set("BaseDeDonnee.password", "");
+			setPassConfg(config);
+			Bukkit.getLogger().warning("Merci de remplir la config pass.yml avant de relancer le serveur");
+			Bukkit.shutdown();
 		}
 	}
-	
-	private static void createPass(){
-		FileConfiguration config = main.Config.getPassConfig();
-		if(config.getString("user") == null || config.getString("user") == ""){
-			config.set("user", "");
-			config.set("password", "");
-			main.Config.savePassConfig(config);
-			Bukkit.getLogger().info("Creation de la config pass");
-			Bukkit.getLogger().warning("Merci de la remplir avant de relancer le serveur");
-			Bukkit.getServer().shutdown();
-		}
-	}
-	
-	
+
 }
