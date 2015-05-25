@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class SendMessage {
 	
 	//Envoyer un message à un autre serveur
-	public void send(String server, ArrayList<String> message){
+	public static void send(String server, ArrayList<String> message){
 		Socket s = StartServer.listServer.get(server);
 		try {
 			OutputStream os = s.getOutputStream();
@@ -24,7 +24,7 @@ public class SendMessage {
 		}
 	}
 	
-	public void send(String server, String message){
+	public static void send(String server, String message){
 		Socket s = StartServer.listServer.get(server);
 		String[] msg = message.split(" ");
 		try {
@@ -40,5 +40,5 @@ public class SendMessage {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

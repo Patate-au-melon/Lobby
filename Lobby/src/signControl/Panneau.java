@@ -66,9 +66,23 @@ public class Panneau {
 		this.updateSign();
 	}
 	
+	public String getServer(){
+		return this.server;
+	}
+	
 	public static Panneau getPanneau(String server){
 		if(listPanneau.containsKey(server)){
 			return listPanneau.get(server);
+		}
+		return null;
+	}
+	
+	public static Panneau getPanneau(Location panneauLocation){
+		for(HashMap.Entry<String, Panneau> entry : listPanneau.entrySet()){
+			Panneau pan = entry.getValue();
+			if(pan.sign.getLocation().equals(panneauLocation)){
+				return pan;
+			}
 		}
 		return null;
 	}
