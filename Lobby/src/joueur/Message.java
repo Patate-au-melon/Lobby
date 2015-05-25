@@ -10,25 +10,25 @@ public class Message {
 	
 	//Pour envoyer un joueur a une serveur lors de la reception du message
 	public static void transfertJoueur(String server, ArrayList<String> message){
-		if(message.get(0).equalsIgnoreCase("transfertJoueur")){
+		if(message.get(0).equalsIgnoreCase("transfertJoueur")){  //Verification que l'on a le bon message
 			String name = message.get(1);
 			UUID uuid = UUID.fromString(message.get(2));
 			String serv = message.get(3);
 			Player p = Bukkit.getPlayer(uuid);
-			if(server.equalsIgnoreCase(serv) && p.getName().equalsIgnoreCase(name)){
-				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, serv);
+			if(server.equalsIgnoreCase(serv) && p.getName().equalsIgnoreCase(name)){ //Verification que l'on a le bon serveur et le bon joueur
+				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, serv);  //On transfert le joueur sur le serveur
 			}
 		}
 	}
 	
 	public static void sendMessageJoueur(String server, ArrayList<String> message){
-		if(message.get(0).equalsIgnoreCase("sendMessageJoueur")){
+		if(message.get(0).equalsIgnoreCase("sendMessageJoueur")){  //Verification du message
 			String name = message.get(1);
 			UUID uuid = UUID.fromString(message.get(2));
 			Player p = Bukkit.getPlayer(uuid);
 			String msg = message.get(3);
-			if(p.getName().equalsIgnoreCase(name)){
-				p.sendMessage(msg);
+			if(p.getName().equalsIgnoreCase(name)){  //Verification du bon joueur
+				p.sendMessage(msg); //On envoi le message
 			}
 		}
 	}

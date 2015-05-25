@@ -10,11 +10,14 @@ public class Config {
 	
 	private static String pathPass = "plugins/NitroGames/pass.yml";
 	
+	//Recuperation de la config pass.yml
 	public static FileConfiguration getPassConfig(){
 		File f = new File(pathPass);
 		return YamlConfiguration.loadConfiguration(f);
 	}
 	
+	
+	//Sauvegarde de la config pass.yml
 	public static void setPassConfg(FileConfiguration config){
 		File f = new File(pathPass);
 		try {
@@ -25,6 +28,8 @@ public class Config {
 		}
 	}
 	
+	
+	//Creation de la config pass.yml
 	public static void passCreate(){
 		FileConfiguration config = getPassConfig();
 		if(config.getString("BaseDeDonnee.user") == null || config.getString("BaseDeDonnee.user") == ""){

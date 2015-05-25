@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Event {
@@ -14,7 +15,7 @@ public class Event {
 	public static void playerClickOnSign(PlayerInteractEvent e){
 		Player p = e.getPlayer();
 		Block b = e.getClickedBlock();
-		if(b.getType().equals(Material.WALL_SIGN)){
+		if(b.getType().equals(Material.WALL_SIGN) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){ //On verifie que l'on click sur un panneau avec un click droit
 			Panneau pan = Panneau.getPanneau(b.getLocation());
 			if(pan != null){
 				ArrayList<String> msg = new ArrayList<>();
@@ -22,7 +23,7 @@ public class Event {
 				msg.add(p.getName());
 				msg.add(p.getUniqueId().toString());
 				msg.add(pan.getServer());
-				server.SendMessage.send(pan.getServer(), msg);
+				server.SendMessage.send(pan.getServer(), msg); //On envoi un message pour demander a envoyer un joueur
 			}
 		}
 	}

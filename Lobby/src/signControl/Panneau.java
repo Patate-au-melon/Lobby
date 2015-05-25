@@ -66,10 +66,14 @@ public class Panneau {
 		this.updateSign();
 	}
 	
+	
+	//Recuperation du serveur lie a ce panneau
 	public String getServer(){
 		return this.server;
 	}
 	
+	
+	//Recuperation d'un panneau avec le nom du serveur
 	public static Panneau getPanneau(String server){
 		if(listPanneau.containsKey(server)){
 			return listPanneau.get(server);
@@ -77,6 +81,8 @@ public class Panneau {
 		return null;
 	}
 	
+	
+	//REcuperation d'un panneau avec sa Location
 	public static Panneau getPanneau(Location panneauLocation){
 		for(HashMap.Entry<String, Panneau> entry : listPanneau.entrySet()){
 			Panneau pan = entry.getValue();

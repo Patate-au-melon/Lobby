@@ -20,6 +20,8 @@ public class Main extends JavaPlugin{
 		return false;
 	}
 	
+	
+	//Recuperation de l'objet Plugin
 	public static Plugin getPlugin(){
 		return Bukkit.getPluginManager().getPlugin("LobbyNitroGames");
 	}
