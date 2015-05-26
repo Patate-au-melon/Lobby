@@ -22,7 +22,7 @@ public class ReceptionMessage extends BukkitRunnable{
 		this.serverName = list.get(0).get(0);
 		StartServer.listServer.put(this.serverName, s);
 		Bukkit.getLogger().info(this.serverName + " vient de se connecter au lobby sur le port "+ s.getPort());
-		this.runTask(main.Main.getPlugin());
+		this.runTaskAsynchronously(main.Main.getPlugin());
 	}
 
 	@Override

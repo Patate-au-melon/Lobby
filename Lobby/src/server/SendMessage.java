@@ -14,8 +14,10 @@ public class SendMessage {
 			OutputStream os = s.getOutputStream();
 			PrintWriter pw = new PrintWriter(os);
 			pw.println("start");
+			pw.flush();
 			for(String m : message){
 				pw.println(m);
+				pw.flush();
 			}
 			pw.println("stop");
 			pw.flush();
