@@ -1,4 +1,4 @@
-package server;
+package commServer;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

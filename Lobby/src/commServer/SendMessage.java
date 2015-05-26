@@ -1,4 +1,4 @@
-package server;
+package commServer;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;

@@ -17,7 +17,8 @@ public class StartAndStop {
 		Panneau.listPanneau = new HashMap<>();
 		main.Config.passCreate(); //Creation de la config pass.yml si elle n'existe pas
 		
-		Bukkit.getPluginManager().registerEvents(new Event(), main.Main.getPlugin()); //Gestion des events dans la classe Event
+		Bukkit.getPluginManager().registerEvents(new Event(), Main.getPlugin()); //Gestion des events dans la classe Event
+		Bukkit.getMessenger().registerOutgoingPluginChannel(Main.getPlugin(), "BungeeCord"); //On initialise l'API Bungeecord
 		
 		String dev = main.Config.getPassConfig().getString("BaseDeDonnee.dev");
 		String user = main.Config.getPassConfig().getString("BaseDeDonnee.user");
@@ -46,7 +47,7 @@ public class StartAndStop {
 		String[] listTest = {Bukkit.getServerName()};
 		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer` WHERE `ServerName` = ?;", listTest);
 		int lobbyPort = Integer.parseInt(list.get(0).get(1)); //Recuperation du port de communication du serveurs
-		new server.StartServer(Bukkit.getServerName(), lobbyPort); //Lancement du serveur de communication
+		new commServer.StartServer(Bukkit.getServerName(), lobbyPort); //Lancement du serveur de communication
 		
 		
 		Bukkit.getLogger().info("Plugin completement demarrer");

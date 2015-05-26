@@ -13,10 +13,9 @@ public class Message {
 		if(message.get(0).equalsIgnoreCase("transfertJoueur")){  //Verification que l'on a le bon message
 			String name = message.get(1);
 			UUID uuid = UUID.fromString(message.get(2));
-			String serv = message.get(3);
 			Player p = Bukkit.getPlayer(uuid);
-			if(server.equalsIgnoreCase(serv) && p.getName().equalsIgnoreCase(name)){ //Verification que l'on a le bon serveur et le bon joueur
-				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, serv);  //On transfert le joueur sur le serveur
+			if(p.getName().equalsIgnoreCase(name)){ //Verification que l'on a le bon joueur
+				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, server);  //On transfert le joueur sur le serveur
 			}
 		}
 	}
