@@ -1,5 +1,5 @@
-/joueur/
 /main/
-/object/
-/server/
 /signControl/
+/joueur/
+/server/
+/commServer/

@@ -3,46 +3,31 @@ package joueur;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class Message {
 	
-	public static void receive(String server, String label, String message){
-		if(label.equalsIgnoreCase("nbPlayer")){
-			if(Inv.nbPlayer.containsKey(server)){ //Le serveur est deja dans le hashMap
-				Inv.nbPlayer.replace(server, Integer.parseInt(message));
-			}else{ //Le serveur n'est pas dans le hashMap
-				Inv.nbPlayer.put(server, Integer.parseInt(message));
+	//Pour envoyer un joueur a une serveur lors de la reception du message
+	public static void transfertJoueur(String server, ArrayList<String> message){
+		if(message.get(0).equalsIgnoreCase("transfertJoueur")){  //Verification que l'on a le bon message
+			String name = message.get(1);
+			UUID uuid = UUID.fromString(message.get(2));
+			Player p = Bukkit.getPlayer(uuid);
+			if(p.getName().equalsIgnoreCase(name)){ //Verification que l'on a le bon joueur
+				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, server);  //On transfert le joueur sur le serveur
 			}
-		}else if(label.equalsIgnoreCase("returnLobby")){
-			Main.server.replace(UUID.fromString(message), "Lobby");
-		}else if(label.equalsIgnoreCase("playerQuit")){
-			UUID uuid = UUID.fromString(message);
-			Main.grade.remove(uuid);
-			Main.moneyMiniGames.remove(uuid);
-			Main.moneyVIP.remove(uuid);
-			Main.multiplicateur.remove(uuid);
-			Main.server.remove(uuid);
 		}
 	}
 	
-	public static void receiveCommand(CommandSender sender, Command cmd, String label, String[] args){
-		if(label.equalsIgnoreCase("update") && sender instanceof Player){
-			Player p = (Player) sender;
-			UUID uuid = p.getUniqueId();
-			String requette ="SELECT * FROM `listJoueur` WHERE `uuid`=?;";
-			String[] m = {uuid.toString()};
-			
-			ArrayList<ArrayList<String>> list = main.Api.BdDsendRequette(requette, m);
-			for(ArrayList<String> l : list){
-				if(l.get(0).equalsIgnoreCase(p.getName()) && l.get(1).equalsIgnoreCase(p.getUniqueId().toString())){
-					Main.grade.replace(uuid, object.Grade.getGrade(l.get(2)));
-					Main.moneyMiniGames.replace(uuid, Integer.parseInt(l.get(3)));
-					Main.moneyVIP.replace(uuid, Integer.parseInt(l.get(4)));
-					Main.multiplicateur.replace(uuid, Integer.parseInt(l.get(5)));
-				}
+	public static void sendMessageJoueur(String server, ArrayList<String> message){
+		if(message.get(0).equalsIgnoreCase("sendMessageJoueur")){  //Verification du message
+			String name = message.get(1);
+			UUID uuid = UUID.fromString(message.get(2));
+			Player p = Bukkit.getPlayer(uuid);
+			String msg = message.get(3);
+			if(p.getName().equalsIgnoreCase(name)){  //Verification du bon joueur
+				p.sendMessage(msg); //On envoi le message
 			}
 		}
 	}

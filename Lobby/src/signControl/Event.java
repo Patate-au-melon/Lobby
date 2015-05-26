@@ -1,30 +1,30 @@
 package signControl;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class Event{
+public class Event {
 	
-	public static void clickSign(PlayerInteractEvent e){
+	
+	//Evenement pour savoir quand un joueur click sur un panneau pour etre tp sur un autre serveur
+	public static void playerClickOnSign(PlayerInteractEvent e){
 		Player p = e.getPlayer();
-		if(e.getClickedBlock() == null){
-			
-		}else if(e.getClickedBlock().getType() == Material.WALL_SIGN){
-			String server = object.Panneau.listLoc.get(e.getClickedBlock().getLocation());
-			new server.SendMessage(server, "sendJoueur", p.getUniqueId().toString());
-		}
-	}
-	
-	public static void receiveMessage(String server, String label, String message){
-		if(label.equalsIgnoreCase("sendJoueur")){
-			UUID id = UUID.fromString(message);
-			Player p = Bukkit.getPlayer(id);
-			joueur.Main.server.replace(id, server);
-			main.Api.transfertPlayerTo(main.Main.getPlugin(), p, server);
+		Block b = e.getClickedBlock();
+		if(b.getType().equals(Material.WALL_SIGN) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){ //On verifie que l'on click sur un panneau avec un click droit
+			Panneau pan = Panneau.getPanneau(b.getLocation());
+			if(pan != null){
+				ArrayList<String> msg = new ArrayList<>();
+				msg.add("sendJoueur");
+				msg.add(p.getName());
+				msg.add(p.getUniqueId().toString());
+				msg.add(pan.getServer());
+				commServer.SendMessage.send(pan.getServer(), msg); //On envoi une demande au serveur qui doit recevoir le joueur
+			}
 		}
 	}
 
