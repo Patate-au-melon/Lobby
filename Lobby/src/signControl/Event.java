@@ -23,7 +23,7 @@ public class Event {
 				msg.add(p.getName());
 				msg.add(p.getUniqueId().toString());
 				msg.add(pan.getServer());
-				commServer.SendMessage.send(pan.getServer(), msg); //On envoi une demande au serveur qui doit recevoir le joueur
+				commServer.SendMessage.send(pan.getServer(), msg); //On envoi un message pour demander a envoyer un joueur
 			}
 		}
 	}
