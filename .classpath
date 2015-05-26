@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="Lobby/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Codage/mysql-connector-java-5.0.5-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Codage/spigot-1.8-R0.1-SNAPSHOT-latest.jar"/>
-	<classpathentry kind="output" path="Lobby/bin"/>
-</classpath>
