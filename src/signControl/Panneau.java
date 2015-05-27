@@ -13,6 +13,7 @@ public class Panneau {
 	public static HashMap<String, Panneau> listPanneau;
 	
 	private String server;
+	private boolean serverState;
 	
 	private String line1;
 	private String line2;
@@ -24,6 +25,7 @@ public class Panneau {
 	//Constructeur 
 	public Panneau(String server, Location signLocation){
 		this.server = server;
+		serverState = false;
 		Block block = signLocation.getBlock();
 		if(block.getType().equals(Material.WALL_SIGN)){
 			this.sign = (Sign) block.getState();
@@ -82,7 +84,7 @@ public class Panneau {
 	}
 	
 	
-	//REcuperation d'un panneau avec sa Location
+	//Recuperation d'un panneau avec sa Location
 	public static Panneau getPanneau(Location panneauLocation){
 		for(HashMap.Entry<String, Panneau> entry : listPanneau.entrySet()){
 			Panneau pan = entry.getValue();
@@ -91,6 +93,15 @@ public class Panneau {
 			}
 		}
 		return null;
+	}
+	
+	//Recuperer si le serveur est connecte sur ce panneau
+	public boolean getServerState(){
+		return this.serverState;
+	}
+	
+	public void setServerState(boolean serverState){
+		this.serverState = serverState;
 	}
 
 }
