@@ -18,12 +18,16 @@ public class Event {
 		if(b.getType().equals(Material.WALL_SIGN) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){ //On verifie que l'on click sur un panneau avec un click droit
 			Panneau pan = Panneau.getPanneau(b.getLocation());
 			if(pan != null){
-				ArrayList<String> msg = new ArrayList<>();
-				msg.add("sendJoueur");
-				msg.add(p.getName());
-				msg.add(p.getUniqueId().toString());
-				msg.add(pan.getServer());
-				commServer.SendMessage.send(pan.getServer(), msg); //On envoi une demande au serveur qui doit recevoir le joueur
+				if(pan.getServerState()){ //On verifie que le serveur est connecte au panneau
+					ArrayList<String> msg = new ArrayList<>();
+					msg.add("sendJoueur");
+					msg.add(p.getName());
+					msg.add(p.getUniqueId().toString());
+					msg.add(pan.getServer());
+					commServer.SendMessage.send(pan.getServer(), msg); //On envoi une demande au serveur qui doit recevoir le joueur
+				}else{
+					p.sendMessage("§4Le serveur est déconnecté, merci de réessayer plus tard");
+				}
 			}
 		}
 	}
