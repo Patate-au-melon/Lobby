@@ -2,6 +2,7 @@ package commServer;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -21,6 +22,8 @@ public class StartServer extends BukkitRunnable{
 		this.lobbyName = lobbyName;
 		this.lobbyPort = lobbyPort;
 		StartServer.listServer = new HashMap<>();
+		SendMessage.listMessage = new ArrayList<>();
+		SendMessage.listServer = new ArrayList<>();
 		this.runTaskAsynchronously(main.Main.getPlugin());
 	}
 	
