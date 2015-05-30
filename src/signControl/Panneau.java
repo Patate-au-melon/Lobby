@@ -2,6 +2,7 @@ package signControl;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,7 +21,7 @@ public class Panneau {
 	private String line3;
 	private String line4;
 	
-	private Sign sign;
+	private Location loc;
 	
 	//Constructeur 
 	public Panneau(String server, Location signLocation){
@@ -28,7 +29,7 @@ public class Panneau {
 		serverState = false;
 		Block block = signLocation.getBlock();
 		if(block.getType().equals(Material.WALL_SIGN)){
-			this.sign = (Sign) block.getState();
+			this.loc = signLocation;
 		}
 		this.line1 = "";
 		this.line2 = "§4Serveur";
@@ -40,14 +41,26 @@ public class Panneau {
 	
 	
 	//Mettre a jour un panneau
-	private void updateSign(){
-		this.sign.setLine(0, this.line1);
-		this.sign.setLine(1, this.line2);
-		this.sign.setLine(2, this.line3);
-		this.sign.setLine(3, this.line4);
-		this.sign.update();
+	public void updateSign(){
+		try{
+			Sign s = (Sign) this.loc.getBlock().getState();
+			s.setLine(0, this.line1);
+			s.setLine(1, this.line2);
+			s.setLine(2, this.line3);
+			s.setLine(3, this.line4);
+			s.update();
+		}catch(Exception e){
+			Bukkit.getLogger().info("Impossible de modifier le panneau lie au serveur "+ this.server);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(main.Main.getPlugin(), new Runnable(){
+
+				@Override
+				public void run() {
+					updateSign();
+				}
+				
+			}, 40);
+		}
 	}
-	
 	
 	//Modifier le texte d'un panneau 1ere methode
 	public void setLine(String[] line){
@@ -88,7 +101,7 @@ public class Panneau {
 	public static Panneau getPanneau(Location panneauLocation){
 		for(HashMap.Entry<String, Panneau> entry : listPanneau.entrySet()){
 			Panneau pan = entry.getValue();
-			if(pan.sign.getLocation().equals(panneauLocation)){
+			if(pan.loc.equals(panneauLocation)){
 				return pan;
 			}
 		}
