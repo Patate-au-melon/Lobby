@@ -44,6 +44,8 @@ public class StartAndStop {
 		}
 		
 		
+		Grade.createGrade(); //Recuperation des grades
+		
 		String[] listTest = {Bukkit.getServerName()};
 		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer` WHERE `ServerName` = ?;", listTest);
 		int lobbyPort = Integer.parseInt(list.get(0).get(1)); //Recuperation du port de communication du serveurs
