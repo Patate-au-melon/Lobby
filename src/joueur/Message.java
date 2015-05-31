@@ -20,6 +20,8 @@ public class Message {
 		}
 	}
 	
+	
+	//Permet d'envoyer un message au joueur depuis un autre serveur
 	public static void sendMessageJoueur(String server, ArrayList<String> message){
 		if(message.get(0).equalsIgnoreCase("sendMessageJoueur")){  //Verification du message
 			String name = message.get(1);

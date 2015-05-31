@@ -20,21 +20,21 @@ public class StartAndStop {
 		Bukkit.getPluginManager().registerEvents(new Event(), Main.getPlugin()); //Gestion des events dans la classe Event
 		Bukkit.getMessenger().registerOutgoingPluginChannel(Main.getPlugin(), "BungeeCord"); //On initialise l'API Bungeecord
 		
-		String dev = main.Config.getPassConfig().getString("BaseDeDonnee.dev");
-		String user = main.Config.getPassConfig().getString("BaseDeDonnee.user");
+		String dev = main.Config.getPassConfig().getString("BaseDeDonnee.dev");  //Recuperation du user depuis le fichier pass.yml
+		String user = main.Config.getPassConfig().getString("BaseDeDonnee.user");  //Recuperation du mot de passe depuis le fichier pass.yml
 		String password = main.Config.getPassConfig().getString("BaseDeDonnee.password"); //Recuperation des informations de connexion à la base de donnee
 		String url;
 		if(dev.equalsIgnoreCase("true")){
-			url = "jdbc:mysql://mysql-hbct.alwaysdata.net/hbct_plugin";
+			url = "jdbc:mysql://mysql-hbct.alwaysdata.net/hbct_plugin";  //Base de donnee de developpement
 			Bukkit.getLogger().info("Connexion avec la base de donnee de developpement");
 		}else{
-			url = "jdbc:mysql://mysql-hbct.alwaysdata.net/hbct_nitro";
+			url = "jdbc:mysql://mysql-hbct.alwaysdata.net/hbct_nitro";  //Base de donnee du serveur
 			Bukkit.getLogger().info("Connexion avec la base de donnee du serveur");
 		}
 		main.Api.BdDconnect(url, user, password); //Connexion avec la base de donnee
 		
 		
-		ArrayList<ArrayList<String>> listb = Api.BdDsendRequette("SELECT * FROM `signList`");  
+		ArrayList<ArrayList<String>> listb = Api.BdDsendRequette("SELECT * FROM `signList`");  //On recupere la liste de tous les panneaux
 		for(ArrayList<String> l : listb){
 			World world = Bukkit.getWorld(l.get(1));
 			int x = Integer.parseInt(l.get(2));
