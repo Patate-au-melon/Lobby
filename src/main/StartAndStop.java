@@ -15,6 +15,7 @@ public class StartAndStop {
 	static void onEnable(){
 		
 		Panneau.listPanneau = new HashMap<>();
+		joueur.Joueur.onEnable();
 		main.Config.passCreate(); //Creation de la config pass.yml si elle n'existe pas
 		
 		Bukkit.getPluginManager().registerEvents(new Event(), Main.getPlugin()); //Gestion des events dans la classe Event
@@ -45,6 +46,7 @@ public class StartAndStop {
 		
 		
 		Grade.createGrade(); //Recuperation des grades
+		
 		
 		String[] listTest = {Bukkit.getServerName()};
 		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer` WHERE `ServerName` = ?;", listTest);
