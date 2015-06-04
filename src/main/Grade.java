@@ -36,9 +36,9 @@ public class Grade {
 	
 	
 	//Recuperation d'un grade depuis son nom
-	public static Grade getGrade(String name){
+	public static Grade getGrade(String gradeName){
 		for(Grade g : listGrade){
-			if(g.getName().equalsIgnoreCase(name)){
+			if(g.getName().equalsIgnoreCase(gradeName)){
 				return g;
 			}
 		}
