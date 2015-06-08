@@ -48,6 +48,7 @@ public class Grade {
 	
 	//Recuperation de la liste des grades depuis la base de donnees
 	static void createGrade(){
+		listGrade = new ArrayList<>();
 		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listGrade`"); //Demande de la liste des grades a la base de donnees
 		for(ArrayList<String> l : list){
 			String name = l.get(0);

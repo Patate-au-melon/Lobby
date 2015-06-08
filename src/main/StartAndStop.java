@@ -44,7 +44,6 @@ public class StartAndStop {
 			new Panneau(l.get(0), new Location(world, x, y, z));  //Mise en place des panneaux avec le texte de serveur off
 		}
 		
-		
 		Grade.createGrade(); //Recuperation des grades
 		
 		
