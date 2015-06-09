@@ -40,6 +40,7 @@ public class Event {
 	}
 	
 	private static void prepareJoueurToLobby(Player p){	//Inventaire que le joueur a sur le lobby
+		inventory.Lobby.setInventory(p);
 	/*	Inventory inv = p.getInventory();
 		//Pour ajouter l'item de la boutique VIP
 		ItemStack item = Item.accesBoutiqueVIP();
