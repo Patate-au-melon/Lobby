@@ -15,7 +15,9 @@ public class Event {
 	public static void playerClickOnSign(PlayerInteractEvent e){
 		Player p = e.getPlayer();
 		Block b = e.getClickedBlock();
-		if(b.getType().equals(Material.WALL_SIGN) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){ //On verifie que l'on click sur un panneau avec un click droit
+		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_AIR)){
+			
+		}else if(b.getType().equals(Material.WALL_SIGN) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){ //On verifie que l'on click sur un panneau avec un click droit
 			Panneau pan = Panneau.getPanneau(b.getLocation()); //Recuperation de l'objet Panneau
 			if(pan != null){
 				/*

@@ -16,6 +16,7 @@ public class Message {
 			Player p = Bukkit.getPlayer(uuid);
 			if(p.getName().equalsIgnoreCase(name)){ //Verification que l'on a le bon joueur
 				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, server);  //On transfert le joueur sur le serveur
+				Joueur.server.replace(uuid, server);
 			}
 		}
 	}

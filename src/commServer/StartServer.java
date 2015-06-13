@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class StartServer extends BukkitRunnable{
 	
 	public static HashMap<String, Socket> listServer;
+	public static HashMap<String, String> function;
 	
 	protected String lobbyName;
 	protected int lobbyPort;
@@ -22,6 +23,7 @@ public class StartServer extends BukkitRunnable{
 		this.lobbyName = lobbyName;
 		this.lobbyPort = lobbyPort;
 		StartServer.listServer = new HashMap<>();
+		function = new HashMap<>();
 		SendMessage.listMessage = new ArrayList<>();
 		SendMessage.listServer = new ArrayList<>();
 		this.runTaskAsynchronously(main.Main.getPlugin());

@@ -3,9 +3,19 @@ package joueur;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import main.Grade;
+
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class Event {
 	
@@ -16,7 +26,7 @@ public class Event {
 		UUID id = p.getUniqueId();
 		if(Joueur.server.containsKey(id)){ //Le joueur est deja sur le serveur
 			Joueur.getJoueurData(p);
-			if(Joueur.server.get(id).equalsIgnoreCase("lobby")){ //Le joueur revient d'un autre serveur
+			if(Joueur.server.get(id).equalsIgnoreCase(Bukkit.getServerName())){ //Le joueur revient d'un autre serveur
 				prepareJoueurToLobby(p);
 			}else{ //Le joueur n'etait pas sur le lobby
 				String server = Joueur.server.get(id);
@@ -35,22 +45,68 @@ public class Event {
 			}
 			Joueur.getJoueurData(p);
 			prepareJoueurToLobby(p);
-			main.Api.sendTitle(p, "Bienvenue sur NITROGAMES", "Serveur multi-pole", 20); //Affichage d'un message a l'ecran
+			main.Api.sendTitle(p, "§6§lBienvenue sur NITROGAMES", "", 20); //Affichage d'un message a l'ecran
 		}
 	}
 	
 	private static void prepareJoueurToLobby(Player p){	//Inventaire que le joueur a sur le lobby
-		inventory.Lobby.setInventory(p);
-	/*	Inventory inv = p.getInventory();
-		//Pour ajouter l'item de la boutique VIP
-		ItemStack item = Item.accesBoutiqueVIP();
-		inv.setItem(8, item);
-		if(Joueur.grade.get(p.getUniqueId()).getPower() < 2){ // c'est un membre du staff
-			inv.setItem(0, Item.accesAdminListServer());
+		inventory.Lobby.getInventory(p);
+		p.teleport(p.getWorld().getSpawnLocation());
+		p.setGameMode(GameMode.SURVIVAL);
+		Grade g = Joueur.grade.get(p.getUniqueId());
+		if(g.getPower() <= 15 && g.getPower() >10){ //Joueur VIP double jump
+			Joueur.doubleJump.add(p.getUniqueId());
+		}else if(g.getPower() <= 10){ //Staff Fly
+			p.setAllowFlight(true);
 		}
-		p.updateInventory();
-		*/
-		p.sendMessage("preparation pour le lobby");
+		p.setFlying(false);
+		p.setExp(0);
+	}
+	
+	public static void playerClick(PlayerInteractEvent e){
+		Player p = e.getPlayer();
+		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+			if(e.getItem() != null){
+				ItemStack item = e.getItem();
+				if(item.equals(inventory.Lobby.getCompas())){
+					p.openInventory(inventory.Compass.getInventory(p));
+				}else if(item.getType().equals(Material.SKULL_ITEM)){
+					p.openInventory(inventory.Head.getInventory(p));
+				}else if(item.equals(inventory.Lobby.getEmeraude())){
+					p.openInventory(inventory.Emmerald.getInventory(p));
+				}
+			}
+		}
+	}
+	
+	public static void playerQuit(PlayerQuitEvent e){
+		Player p = e.getPlayer();
+		UUID id = p.getUniqueId();
+		if(Joueur.server.get(id).equalsIgnoreCase(Bukkit.getServerName())){
+			Joueur.grade.remove(id);
+			Joueur.money.remove(id);
+			Joueur.server.remove(id);
+			Joueur.doubleJump.remove(id);
+		}
+	}
+	
+	public static void toggleFlight(PlayerToggleFlightEvent e){
+		Player p = e.getPlayer();
+		if(Joueur.doubleJump.contains(p.getUniqueId())){
+			e.setCancelled(true);
+			p.setAllowFlight(false);
+			p.setFlying(false);
+			p.setVelocity(p.getLocation().getDirection().multiply(1.5).setY(1));
+		}
+	}
+	
+	public static void PlayerMove(PlayerMoveEvent e){
+		Player p =e.getPlayer();
+		if(Joueur.doubleJump.contains(p.getUniqueId())){
+			if(p.getLocation().subtract(0,1,0).getBlock().getType() != Material.AIR && p.isFlying() == false ){
+				p.setAllowFlight(true);
+			}
+		}
 	}
 	
 }

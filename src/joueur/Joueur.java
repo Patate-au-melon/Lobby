@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
-
 import main.Grade;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class Joueur {
 	
-	public static HashMap<UUID, Integer> moneyMiniGames;
 	public static HashMap<UUID, Integer> money;
 	public static HashMap<UUID, Grade> grade;
 	public static HashMap<UUID, String> server;
+	public static ArrayList<UUID> doubleJump;
 	
 	
 	//Lance au demarage serveur pour initialiser les HAshMap
 	public static void onEnable(){
-		moneyMiniGames = new HashMap<>();
 		money = new HashMap<>();
 		grade = new HashMap<>();
 		server = new HashMap<>();
+		doubleJump = new ArrayList<>();
 	}
 	
 	public static boolean getJoueurData(Player p){
@@ -31,7 +32,7 @@ public class Joueur {
 			if(l.get(1).equalsIgnoreCase(id.toString()) && l.get(0).equalsIgnoreCase(p.getName())){
 				Joueur.grade.put(id, main.Grade.getGrade(l.get(2)));
 				Joueur.money.put(id, Integer.parseInt(l.get(3)));
-				Joueur.server.put(id, "Lobby");
+				Joueur.server.put(id, Bukkit.getServerName());
 				return true;
 			}
 		}

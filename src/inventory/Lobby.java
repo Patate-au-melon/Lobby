@@ -10,11 +10,12 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class Lobby {
 	
-	public static void setInventory(Player p){
+	public static void getInventory(Player p){
 		Inventory inv = p.getInventory();
 		inv.clear();
 		inv.setItem(0, getCompas());
 		inv.setItem(7, getHead(p));
+		inv.setItem(8, getEmeraude());
 	}
 	
 	public static ItemStack getCompas(){
@@ -33,5 +34,13 @@ public class Lobby {
 		item.setItemMeta(meta);
 		return item;
 	}
-
+	
+	public static ItemStack getEmeraude(){
+		ItemStack item = new ItemStack(Material.EMERALD);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6§lBoutique §r§7Click Droit");
+		item.setItemMeta(meta);
+		return item;
+	}
+	
 }
