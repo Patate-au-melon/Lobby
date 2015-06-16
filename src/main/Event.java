@@ -6,12 +6,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 
+@SuppressWarnings("deprecation")
 public class Event implements Listener { //Cette classe contien tout les events et les rediriges
 	
 	
@@ -73,6 +75,11 @@ public class Event implements Listener { //Cette classe contien tout les events 
 	@EventHandler
 	public void playerMove(PlayerMoveEvent e){
 		joueur.Event.PlayerMove(e);
+	}
+	
+	@EventHandler
+	public void ChatEvent(PlayerChatEvent e){
+		joueur.Event.SendMessage(e);
 	}
 	
 	/*

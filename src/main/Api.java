@@ -186,5 +186,5 @@ public class Api {
 	        PacketPlayOutChat ppoc = new PacketPlayOutChat(cbc, (byte) 2);
 	        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(ppoc);
 	}
-
+	
 }

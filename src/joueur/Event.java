@@ -1,15 +1,14 @@
 package joueur;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import main.Grade;
-
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -17,6 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("deprecation")
 public class Event {
 	
 	
@@ -24,10 +24,11 @@ public class Event {
 	public static void playerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID id = p.getUniqueId();
+		
 		if(Joueur.server.containsKey(id)){ //Le joueur est deja sur le serveur
 			Joueur.getJoueurData(p);
 			if(Joueur.server.get(id).equalsIgnoreCase(Bukkit.getServerName())){ //Le joueur revient d'un autre serveur
-				prepareJoueurToLobby(p);
+				Joueur.prepareJoueurToLobby(p);
 			}else{ //Le joueur n'etait pas sur le lobby
 				String server = Joueur.server.get(id);
 				ArrayList<String> msg = new ArrayList<>();
@@ -38,30 +39,36 @@ public class Event {
 			}
 		}else{ //Le joueur vient de se connecter
 			if(Joueur.getJoueurData(p) == false){ //Le joueur se connecte pour le premiere fois
-				String requette = "INSERT INTO `listJoueur`(`name`, `UUID`, `grade`, `money`, `multiplicateur`) VALUES (?,?,?,?,?)";
-				String[] list = {p.getName(), id.toString(), "Joueur", "0", "0"};
+				String requette = "INSERT INTO `listJoueur`(`name`, `UUID`, `grade`, `money`, `multiplicateur`, `staffGrade`, `mute`, `ban`) VALUES (?,?,?,?,?,?,?,? )";
+				String[] list = {p.getName(), id.toString(), "Joueur", "0", "0", "Joueur", "0", "0"};
 				main.Api.BdDsendRequetteNoReturn(requette, list);
 				Bukkit.getLogger().info(p.getName()+" vient de se connecter pour la premiere fois sur le serveur");
 			}
 			Joueur.getJoueurData(p);
-			prepareJoueurToLobby(p);
+			Joueur.prepareJoueurToLobby(p);
+			p.teleport(p.getWorld().getSpawnLocation());
 			main.Api.sendTitle(p, "§6§lBienvenue sur NITROGAMES", "", 20); //Affichage d'un message a l'ecran
 		}
+		
+		//chehck mute - ban
+		Date d = new Date(System.currentTimeMillis());
+		String requette1 = "SELECT * FROM `listJoueur` WHERE `UUID` = ?";
+		String[] list1 = {p.getUniqueId().toString()};
+		ArrayList<ArrayList<String>> li = main.Api.BdDsendRequette(requette1, list1);
+		
+		Date dBan = new Date(Long.parseLong(li.get(0).get(6)));
+		Date dMute = new Date(Long.parseLong(li.get(0).get(7)));
+		if(d.compareTo(dBan) <= 0){
+			p.kickPlayer("Vous êtes bannie du serveur, jusqu'au " + dBan.toString());
+			return;
+		}
+		if(d.compareTo(dMute) <= 0){
+			p.sendMessage("§4Vous ne pouvez pas parler car un administrateur vous a mute");
+			Joueur.mute.add(p.getUniqueId());
+		}
+		
 	}
 	
-	private static void prepareJoueurToLobby(Player p){	//Inventaire que le joueur a sur le lobby
-		inventory.Lobby.getInventory(p);
-		p.teleport(p.getWorld().getSpawnLocation());
-		p.setGameMode(GameMode.SURVIVAL);
-		Grade g = Joueur.grade.get(p.getUniqueId());
-		if(g.getPower() <= 15 && g.getPower() >10){ //Joueur VIP double jump
-			Joueur.doubleJump.add(p.getUniqueId());
-		}else if(g.getPower() <= 10){ //Staff Fly
-			p.setAllowFlight(true);
-		}
-		p.setFlying(false);
-		p.setExp(0);
-	}
 	
 	public static void playerClick(PlayerInteractEvent e){
 		Player p = e.getPlayer();
@@ -106,6 +113,23 @@ public class Event {
 			if(p.getLocation().subtract(0,1,0).getBlock().getType() != Material.AIR && p.isFlying() == false ){
 				p.setAllowFlight(true);
 			}
+		}
+		
+		if(p.getLocation().getY() < 15){
+			p.teleport(p.getWorld().getSpawnLocation());
+		}
+	}
+	
+	public static void SendMessage(PlayerChatEvent e){
+		Player p = e.getPlayer();
+		if(Joueur.mute.contains(p.getUniqueId())){
+			p.sendMessage("§4Vous ne pouvez pas parler");
+			return;
+		}
+		String msg = e.getMessage();
+		e.setCancelled(true);
+		for(Player pl : Bukkit.getOnlinePlayers()){
+			pl.sendMessage(p.getDisplayName() + " : " +msg);
 		}
 	}
 	

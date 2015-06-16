@@ -17,6 +17,8 @@ public class Main extends JavaPlugin{
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		joueur.Cmd_setGrade.setGrade(sender, cmd, label, args);
+		joueur.Cmd_addVip.addVip(sender, cmd, label, args);
 		return false;
 	}
 	

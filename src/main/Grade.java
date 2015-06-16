@@ -10,11 +10,13 @@ public class Grade {
 	
 	private String name;
 	private int power;
+	private String server;
 	private String prefixe;
 	
-	public Grade(String name, int power, String prefixe){
+	public Grade(String name, int power, String server, String prefixe){
 		this.name = name;
 		this.power = power;
+		this.server = server;
 		this.prefixe = prefixe;
 		listGrade.add(this);
 	}
@@ -27,6 +29,11 @@ public class Grade {
 	//Recuperation du power du grade
 	public int getPower(){
 		return this.power;
+	}
+
+	//Recuperation du serveur ou le grade est actif
+	public String getsever(){
+		return this.server;
 	}
 	
 	//Recuperation du prefixe du grade
@@ -53,8 +60,9 @@ public class Grade {
 		for(ArrayList<String> l : list){
 			String name = l.get(0);
 			int power = Integer.parseInt(l.get(1));
+			String server = l.get(5);
 			String prefixe = l.get(2);
-			new Grade(name, power, prefixe); //Creation de tous les objets Grade
+			new Grade(name, power, server, prefixe); //Creation de tous les objets Grade
 		}
 		Bukkit.getLogger().info("Recuperation des grades");
 	}

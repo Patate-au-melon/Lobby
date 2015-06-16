@@ -15,8 +15,9 @@ public class Message {
 			UUID uuid = UUID.fromString(message.get(2));
 			Player p = Bukkit.getPlayer(uuid);
 			if(p.getName().equalsIgnoreCase(name)){ //Verification que l'on a le bon joueur
+				Joueur.server.remove(uuid);
+				Joueur.server.put(uuid, server);
 				main.Api.transfertPlayerTo(main.Main.getPlugin(), p, server);  //On transfert le joueur sur le serveur
-				Joueur.server.replace(uuid, server);
 			}
 		}
 	}

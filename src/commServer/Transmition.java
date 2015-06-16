@@ -2,6 +2,8 @@ package commServer;
 
 import java.util.ArrayList;
 
+import signControl.Panneau;
+
 public class Transmition {
 	
 	//Recupération de tous les messages
@@ -22,7 +24,9 @@ public class Transmition {
 		}else if(message.get(0).equalsIgnoreCase("removeFunction")){
 			if(StartServer.function.containsValue(server)){
 				StartServer.function.remove(message.get(1));
-				
+				String[] line = {"", "§4Serveur", "§4Déconnecté", ""};
+				Panneau pan = signControl.Panneau.getPanneau(server);
+				pan.setLine(line);
 			}
 		}
 	}
