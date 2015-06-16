@@ -1,5 +1,7 @@
 package main;
 
+import gadjetArmor.RainbowArmor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +21,8 @@ public class StartAndStop {
 		main.Config.passCreate(); //Creation de la config pass.yml si elle n'existe pas
 		
 		Bukkit.getPluginManager().registerEvents(new Event(), Main.getPlugin()); //Gestion des events dans la classe Event
+		Bukkit.getPluginManager().registerEvents(new gadjetArmor.EventListener(), Main.getPlugin());
+		Bukkit.getPluginManager().registerEvents(new RainbowArmor(), Main.getPlugin());
 		Bukkit.getMessenger().registerOutgoingPluginChannel(Main.getPlugin(), "BungeeCord"); //On initialise l'API Bungeecord
 		
 		String dev = main.Config.getPassConfig().getString("BaseDeDonnee.dev");  //Recuperation du user depuis le fichier pass.yml
@@ -46,6 +50,8 @@ public class StartAndStop {
 		
 		Grade.createGrade(); //Recuperation des grades
 		
+		gadjetArmor.Main.onEnable();//Preparation armor
+		
 		
 		String[] listTest = {Bukkit.getServerName()};
 		ArrayList<ArrayList<String>> list = Api.BdDsendRequette("SELECT * FROM `listServer` WHERE `ServerName` = ?;", listTest);
@@ -59,7 +65,7 @@ public class StartAndStop {
 	
 	//Procédure à l'arret du serveur
 	static void onDisble(){
-		
+		gadjetArmor.Main.onDisable();
 	}
 
 }

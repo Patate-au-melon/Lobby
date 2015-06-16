@@ -16,6 +16,7 @@ public class Lobby {
 		inv.setItem(0, getCompas());
 		inv.setItem(7, getHead(p));
 		inv.setItem(8, getEmeraude());
+		inv.setItem(2, gadjetArmor.ArmorStand.getArmorStand());
 	}
 	
 	public static ItemStack getCompas(){
