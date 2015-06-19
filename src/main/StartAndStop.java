@@ -65,6 +65,7 @@ public class StartAndStop {
 	
 	//Procédure à l'arret du serveur
 	static void onDisble(){
+		commServer.StartServer.onDisable();
 		gadjetArmor.Main.onDisable();
 	}
 

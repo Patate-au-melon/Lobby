@@ -37,7 +37,7 @@ public class ReceptionMessage extends BukkitRunnable{
 				Transmition.transmit(serverName, msg);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -54,7 +54,13 @@ public class ReceptionMessage extends BukkitRunnable{
 				return msg;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			try {
+				Bukkit.getLogger().info(serverName + " vient de se deconnecter");
+				s.close();
+				s=null;
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 		return msg;
 	}

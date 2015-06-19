@@ -20,6 +20,7 @@ public class Main extends JavaPlugin{
 		joueur.Cmd_setGrade.setGrade(sender, cmd, label, args);
 		joueur.Cmd_addVip.addVip(sender, cmd, label, args);
 		gadjetArmor.DisplaymenuCommandExecutor.onCommand(sender, cmd, label, args);
+		secretChat.Cmd.ReceiveCommand(sender, cmd, label, args);
 		return false;
 	}
 	

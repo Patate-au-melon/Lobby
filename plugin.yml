@@ -9,3 +9,5 @@ commands:
     description: Ajouter un grade a un joueur
   armor:
     description: armor
+  sc:
+    description: Chat du staff

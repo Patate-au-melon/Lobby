@@ -1,9 +1,11 @@
 package commServer;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -15,7 +17,7 @@ public class StartServer extends BukkitRunnable{
 	
 	protected String lobbyName;
 	protected int lobbyPort;
-	private ServerSocket ss;
+	private static ServerSocket ss;
 
 	
 	//constructeur principale
@@ -40,6 +42,25 @@ public class StartServer extends BukkitRunnable{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void onDisable(){
+		for(Entry<String, Socket> entry : listServer.entrySet()){
+			String server = entry.getKey();
+			Socket s = entry.getValue();
+			try {
+				s.close();
+				Bukkit.getLogger().info(server+" vient d'etre deconnecte");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			ss.close();
+		} catch (IOException e) {
+			Bukkit.getLogger().info("Deconnexion du serveur");
 		}
 	}
 

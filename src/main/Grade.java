@@ -18,6 +18,7 @@ public class Grade {
 		this.power = power;
 		this.server = server;
 		this.prefixe = prefixe;
+		
 		listGrade.add(this);
 	}
 	
